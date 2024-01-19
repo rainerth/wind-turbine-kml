@@ -1,1 +1,1 @@
-from collada_wt.collada_wt import create_turbine
+from collada_wt.collada_wt import *
