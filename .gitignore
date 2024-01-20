@@ -1,6 +1,8 @@
 *.dae
 *.kml
-*.kmz
+WEA*.kmz
+testturm*.kmz
+
 examples/tmp/*
 *checkpoint.ipynb
 # ignore alle .pyc files
