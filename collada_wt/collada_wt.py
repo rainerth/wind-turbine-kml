@@ -446,5 +446,3 @@ def create_zone(zone_height = 95,zone_diameter = 4):
 
     return mesh
 
-
-
