@@ -1,13 +1,11 @@
 import simplekml
 import math
 
-def create_kml_cylinder (cyl_center, cyl_diameter = 1000, cyl_height = 100.0, cyl_color = simplekml.Color.green, cyl_name = 'cylinder', cyl_visibility = 1):
-
-	kml = simplekml.Kml()
+def create_kml_cylinder (kmlfolder, cyl_center, cyl_diameter = 1000, cyl_height = 100.0, cyl_color = simplekml.Color.green, cyl_name = 'cylinder', cyl_visibility = 1):
 
 	# Mittelpunkt und Radius des Kreises
 	center = cyl_center
-	radius_m = cyl_diameter	# in Koordinaten-Einheiten (Grad)
+	radius_m = cyl_diameter/2	# in m radius
 	height = cyl_height
 
 	# Umrechnung des Radius in Grad unter Berücksichtigung der Breitengrade
@@ -23,7 +21,7 @@ def create_kml_cylinder (cyl_center, cyl_diameter = 1000, cyl_height = 100.0, cy
 		coords.append((x, y, height))
 
 	# Polygon
-	pol = kml.newpolygon(
+	pol = kmlfolder.newpolygon(
 		name=cyl_name,
 		outerboundaryis=coords,
 		altitudemode=simplekml.AltitudeMode.relativetoground,
@@ -39,7 +37,7 @@ def create_kml_cylinder (cyl_center, cyl_diameter = 1000, cyl_height = 100.0, cy
 
 	# Farbe und Transparenz der Linie
 	# pol.style.linestyle.color = simplekml.Color.red
-	pol.style.linestyle.color = simplekml.Color.changealphaint(200, simplekml.Color.green)
+	pol.style.linestyle.color = simplekml.Color.changealphaint(100, cyl_color)
 
-	return kml
+	return
 
