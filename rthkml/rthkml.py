@@ -30,7 +30,7 @@ def create_kml_cylinder (kmlfolder, cyl_center, cyl_diameter = 1000, cyl_height 
 	)
 
 	# Farbe und Transparenz des Polygons
-	pol.style.polystyle.color = simplekml.Color.changealphaint(100, cyl_color)
+	pol.style.polystyle.color = simplekml.Color.changealphaint(200, cyl_color)
 
 	# Farbe und Transparenz der Linie
 	pol.style.linestyle.width = 1
@@ -40,4 +40,39 @@ def create_kml_cylinder (kmlfolder, cyl_center, cyl_diameter = 1000, cyl_height 
 	pol.style.linestyle.color = simplekml.Color.changealphaint(100, cyl_color)
 
 	return
+
+
+def xcreate_kml_cube(kml_folder, start_lat, start_lon, start_altitude, width=1.0, length=2.0, slope=4.0, color=simplekml.Color.yellow, name="cube"):
+    import math
+    import simplekml
+
+    # Setzen Sie die Höhe des Quaders
+    height = 100  # in Metern
+
+    # Berechnen Sie die Länge des Quaders basierend auf der Steigung
+    length = height / math.tan(math.radians(slope))  # in Kilometern
+
+    # Berechnen Sie die Endkoordinaten
+    end_lat = start_lat + length / 111.32  # Umrechnung von Kilometern in Grad
+    end_lon = start_lon + width / 2 / 111.32  # Umrechnung von Kilometern in Grad
+
+    # Erstellen Sie die Eckpunkte für jede Seite des Quaders
+    coordinates_bottom = [
+        (start_lon, start_lat, start_altitude),
+        (end_lon, start_lat, start_altitude),
+        (end_lon, end_lat, start_altitude + height),
+        (start_lon, end_lat, start_altitude + height),
+    ]
+
+    coordinates_top = [
+        (start_lon, start_lat, start_altitude + height),
+        (end_lon, start_lat, start_altitude + height),
+        (end_lon, end_lat, start_altitude + 2 * height),
+        (start_lon, end_lat, start_altitude + 2 * height),
+    ]
+
+    # Fügen Sie die Polygone zum KML-Ordner hinzu
+    for coords in [coordinates_bottom, coordinates_top]:
+        pol = kml_folder.newpolygon(name=name, outerboundaryis=coords, altitudemode=simplekml.AltitudeMode.absolute)
+        pol.style.polystyle.color = simplekml.Color.changealphaint(100, color)
 
