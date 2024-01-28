@@ -19,3 +19,4 @@ __pycache__/
 # ignore the ipython notebook checkpoints
 .ipynb_checkpoints
 
+papers/*
