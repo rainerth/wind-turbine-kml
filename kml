@@ -1,0 +1,719 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="de">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="apple-mobile-web-app-capable" content="no" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="DHV-XC" />
+<meta property="og:title" content="DHV-XC - Login" />
+<meta property="og:url" content="https://de.dhv-xc.de/flight/1784736/kml" />
+<meta property="og:image" content="https://de.dhv-xc.de/assets/img/xc/header/DHV-XC-Logo-@50px.png" />
+<meta property="og:description" content="Der DHV-XC ist ein Online-Portal des Deutschen Gleitschirm- und Drachenflugverbandes e.V., in das Flüge über das Internet als igc-Datei eingereicht werden können, die mittels GPS aufgezeichnet wurden. Diese Flüge können dort im Detail betrachtet und analysiert werden. Auf der Plattform werden die Deutsche Meisterschaft im Streckenfliegen für Gleitschirme und Drachen sowie zahlreiche Vereins- und Regionalwertungen ausgetragen." />
+<meta name="description" content="Der DHV-XC ist ein Online-Portal des Deutschen Gleitschirm- und Drachenflugverbandes e.V., in das Flüge über das Internet als igc-Datei eingereicht werden können, die mittels GPS aufgezeichnet wurden. Diese Flüge können dort im Detail betrachtet und analysiert werden. Auf der Plattform werden die Deutsche Meisterschaft im Streckenfliegen für Gleitschirme und Drachen sowie zahlreiche Vereins- und Regionalwertungen ausgetragen." />
+<meta name="keywords" content="DHV-XC,Deutsche Meisterschaft im Streckenfliegen,Streckenflug,Gleitschirm,Drachen,Starrflügler,Flexi,Vereinswertung,IGC,GPS,Deutscher Gleitschirm- und Drachenflugverband e.V.,Standardklasse,Sportklasse,Performanceklasse,Fun Cup,Flachlandmeisterschaft,Deutschlandpokal,Bundesliga,Tandemwertung,Newcomerwertung,Juniorenwertung,Damenwertung" />
+<title>DHV-XC - Login</title>
+<link rel="alternate" hreflang="de-DE" href="https://de.dhv-xc.de/flight/1784736/kml" />
+<link rel="alternate" hreflang="en-GB" href="https://en.dhv-xc.de/flight/1784736/kml" />
+<link rel="alternate" hreflang="x-default" href="https://de.dhv-xc.de/flight/1784736/kml" />
+<link rel="icon" type="image/vnd.microsoft.icon" href="/assets/img/xc/favicons-xc/favicon.ico"/>
+<link rel="apple-touch-icon" href="/assets/img/xc/favicons-xc/apple-touch-icon.png"/>
+<link rel="mask-icon" sizes="any" href="/assets/img/xc/favicons-xc/safari-pinned-tab.svg" color="#ffffff">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/xc/favicons-xc/android-chrome-192x192.png" />
+<link rel="icon" type="image/png" sizes="256x256" href="/assets/img/xc/favicons-xc/android-chrome-256x256.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/xc/favicons-xc/favicon-32x32.png"/>
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/img/xc/favicons-xc/favicon-16x16.png"/>
+<link rel="manifest" href="/assets/img/xc/favicons-xc/site.webmanifest"/>
+<meta name="msapplication-TileColor" content="#ffffff"/>
+<meta name="msapplication-TileImage" content="/assets/img/xc/favicons-xc/mstile-150x150.png"/>
+<meta name="theme-color" content="#ffffff"/>
+    
+
+<link rel="stylesheet" href="/v.f335484/assets/css/app/xc.min.css" type="text/css" />
+
+
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(["setCookieDomain", "*.dev.dhv-xc.de"]);
+  _paq.push(["setDoNotTrack", true]);
+  _paq.push(["disableCookies"]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://statistik.dhv.de/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '2']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code --></head>
+
+<body class="xc-app d-flex flex-column" data-bs-no-jquery="">
+<section class="progress xc-progress js-progress d-none">
+    <span
+            class="progress-bar xc-progress-bar bg-success"
+            role="progressbar"
+            aria-valuenow="0"
+            aria-valuemin="0"
+            aria-valuemax="100"
+    ></span>
+</section>
+    <header class="container-fluid">
+
+        <!-- bg-image start-->
+        <section class="xc-header row row-cols-auto position-relative justify-content-end d-none d-md-flex">
+            <section class="bg-image position-absolute w-100 h-100">
+                <img class="img-fluid h-100 xc-image-cover" src="/assets/img/xc/header/mountain-range.svg" alt=""/>
+            </section>
+            <section class="xc-gliders">
+                <img class="xc-rigid" alt="" src="/assets/img/xc/header/dhv-rigid.svg"/>
+                <img class="xc-glider" alt="" src="/assets/img/xc/header/dhv-glider.svg"/>
+            </section>
+
+            <section class="bg-image d-flex ms-2 me-auto my-auto">
+                
+<a href="/" class="position-relative pe-5">
+    <img class="xc-image-fit mh-100" src="/assets/img/xc/header/DHV-XC-Logo-@50px.png" alt=""/>
+</a>
+            </section>
+            <section class="ml-auto d-flex align-items-center">
+                <div class="js-change-font-size"></div>
+                
+<!-- Navbar Metamenu start-->
+<nav class="navbar navbar-expand-lg bg-light navbar-light  w-100 shadow-0">
+    <!-- Container wrapper start -->
+    <div class="container-fluid">
+
+        <!-- Collapsible wrapper start -->
+        <div class=" navbar-collapse" id="xc-metamenu">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-row justify-content-between">
+
+                <!-- Links start -->
+                <li class="nav-item js-langmenu">
+                    <a class="nav-link" href="javascript:void(0)" data-lng="en"> <i class="ks-icon-sprache small-icon inline" isregistered="true" isrendered="true" style="background-image: none;">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg>
+</i>
+                        <span class="d-none d-sm-inline">English</span>
+                    </a>
+                </li>
+                <!-- Links end -->
+
+            
+            </ul>
+
+        </div>
+        <!-- Collapsible wrapper end -->
+
+
+    </div>
+    <!-- Container wrapper end -->
+</nav>
+<!-- Navbar Metamenu end -->
+
+            </section>
+        </section>
+        <!-- bg-image end -->
+
+        <!-- Banner Section start-->
+        
+
+        <!-- Banner Section end -->
+
+        <!-- Mainmenu start -->
+        <nav role="navigation" class="col-12 navbar navbar-expand-md navbar-light bg-light py-0 js-mainmenu xc-mainmenu">
+            <div class="container-fluid pe-0">
+                <section class="d-flex d-md-none w-100 justify-content-between xc-mobile-logo">
+                    
+<a href="/" class="position-relative pe-5">
+    <img class="xc-image-fit mh-100" src="/assets/img/xc/header/DHV-XC-Logo-@50px.png" alt=""/>
+</a>
+
+                    
+                    <button class="navbar-toggler px-0 pe-3 xc-mobile-toggle" type="button"
+                            data-mdb-toggle="collapse"
+                            data-mdb-target="#navbar-content"
+                            aria-controls="navbar-content"
+                            aria-expanded="false"
+                            aria-label="Navigation ein-/ausblenden"
+                    >
+                        <!--<span class="navbar-toggler-icon"></span>-->
+                        <!--<i class="fas fa-bars"></i>-->
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </section>
+                <section class="row w-100">
+
+                    <div id="navbar-content" class="collapse navbar-collapse">
+                        <section class="d-flex d-md-none w-100">
+                            
+<!-- Navbar Metamenu start-->
+<nav class="navbar navbar-expand-lg bg-light navbar-light  w-100 shadow-0">
+    <!-- Container wrapper start -->
+    <div class="container-fluid">
+
+        <!-- Collapsible wrapper start -->
+        <div class=" navbar-collapse" id="xc-metamenu">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-row justify-content-between">
+
+                <!-- Links start -->
+                <li class="nav-item js-langmenu">
+                    <a class="nav-link" href="javascript:void(0)" data-lng="en"> <i class="ks-icon-sprache small-icon inline" isregistered="true" isrendered="true" style="background-image: none;">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg>
+</i>
+                        <span class="d-none d-sm-inline">English</span>
+                    </a>
+                </li>
+                <!-- Links end -->
+
+            
+            </ul>
+
+        </div>
+        <!-- Collapsible wrapper end -->
+
+
+    </div>
+    <!-- Container wrapper end -->
+</nav>
+<!-- Navbar Metamenu end -->
+
+                        </section>
+                        <ul class="navbar-nav me-auto ps-lg-0 justify-content-around w-100" style="padding-left: 0.15rem">
+                            
+                            
+<li class="nav-item">
+    <a href="/flights" class="nav-link text-uppercase font-weight-normal lead">
+        Flüge    </a>
+</li>
+
+
+
+                            
+<li class="nav-item dropdown xc-position-md-static js-competitions">
+    <a class="nav-link dropdown-toggle text-uppercase font-weight-normal lead" href="javascript:void(0);" id="js-competitions" role="button" data-mdb-toggle="dropdown" aria-expanded="false" >
+        Wertungen    </a>
+    <div class="dropdown-menu xc-position-static xc-position-md-absolute w-100 mt-0"  aria-labelledby="js-competitions" >
+        <div class="container">
+            <div class="row my-4">
+
+                <div class="col-lg-8 col-xl-9">
+                    <div class="p-4">
+                                                    <div class="row">
+                                <div class="col-12 col-sm-4 mb-4 ">
+                                    <label class="d-md-flex justify-content-start align-items-center mr-5">Saison:&nbsp;<select class="form-control" name="season"></select> </label>
+                                </div>
+                            </div>
+                                                <div class="row row-cols-auto gy-4">
+
+    
+
+    <section>
+        <h6 class="text-uppercase">Deutsche Wertungen</h6>
+        <ul class="list-unstyled" data-compcat="1"></ul>
+    </section>
+
+    <section>
+        <h6 class="text-uppercase">Internationale Wertungen</h6>
+        <ul class="list-unstyled" data-compcat="2"></ul>
+    </section>
+
+    <section>
+        <h6 class="text-uppercase">Vereinswertungen</h6>
+        <div class="form-outline">
+            <input type="text" id="select-competition" class="form-control" name="select-competition" />
+            <label class="form-label text-primary fs-7" for="select-competition">Wertung wählen</label>
+        </div>
+        <ul class="list-unstyled" data-compcat="3"></ul>
+    </section>
+
+    <section>
+        <h6 class="text-uppercase">Herstellerwertungen</h6>
+        <ul class="list-unstyled" data-compcat="4"></ul>
+    </section>
+
+
+                        </div>
+                    </div>
+                </div>
+                
+                    <div class="col-lg-4 col-xl-3 px-0 d-none d-lg-block" style="background: center center url(https://www.dhv.de/fileadmin/templates/dhv2011/img/topimage/hintergrundbild_hp_42.jpg)no-repeat; background-size: cover;"></div>
+
+                            </div>
+        </div>
+
+    </div>
+</li>
+
+
+
+
+                            
+<li class="nav-item">
+    <a href="/pilotstatistics" class="nav-link text-uppercase font-weight-normal lead">
+        Statistik    </a>
+</li>
+
+
+
+                            
+<li class="nav-item dropdown xc-position-md-static js-more">
+    <a class="nav-link dropdown-toggle text-uppercase font-weight-normal lead" href="javascript:void(0);" id="js-more" role="button" data-mdb-toggle="dropdown" aria-expanded="false" >
+        Sonstiges    </a>
+    <div class="dropdown-menu xc-position-static xc-position-md-absolute w-100 mt-0"  aria-labelledby="js-more" >
+        <div class="container">
+            <div class="row my-4">
+
+                <div class="col-lg-8 col-xl-9">
+                    <div class="p-4">
+                                                <div class="row row-cols-auto gy-4">
+
+    
+
+
+        
+
+        <section>
+            <h6 class="text-uppercase">Hilfe und Wissenswertes</h6>
+            <ul class="list-unstyled">
+                <li class="nav-item"><a href="/info/release" class="nav-link text-small pb-0">XC Release Informationen</a></li>
+                <li class="nav-item"><a href="https://www.dhv.de/web/piloteninfos/wettbewerb-sport/dhv-xc" target="_blank" class="nav-link text-small pb-0">Ausschreibungen</a></li>
+                <li class="nav-item"><a href="/info/faq" target="_blank" class="nav-link text-small pb-0">F.A.Q.</a></li>
+                <li class="nav-item"><a href="https://www.gleitschirmdrachenforum.de/forumdisplay.php?38-DHV-XC" target="_blank" class="nav-link text-small pb-0">Forum</a></li>
+            </ul>
+        </section>
+
+        <section>
+            <a href="/leonardo/index.php?op=list_flights" class="text-uppercase nav-link text-small p-0">Zum klassischen Leonardo</a>
+        </section>
+
+                        </div>
+                    </div>
+                </div>
+                
+                    <div class="col-lg-4 col-xl-3 px-0 d-none d-lg-block" style="background: center center url(/assets/img/xc/dhv-xc-splashscreen.jpg)no-repeat; background-size: cover;"></div>
+
+                            </div>
+        </div>
+
+    </div>
+</li>
+
+
+
+
+                            
+<li class="nav-item">
+    <a href="/info/faq" class="nav-link text-uppercase font-weight-normal lead">
+        F.A.Q.    </a>
+</li>
+
+
+
+
+                        </ul>
+                    </div>
+                </section>
+
+            </div>
+        </nav>
+        <!-- Mainmenu end -->
+        
+    </header>
+
+
+    <main class="container-fluid pb-3 mt-2 flex-grow-1" style="z-index:2">
+        <div class="row">
+        <!-- Content start -->
+
+        
+
+
+    <article class="col-12 col-lg-10 px-md-5 mx-auto">
+        <kers-tabs class="js-registration">
+
+            
+            <kers-tab name="xc-login" title=Login>
+                <div class="d-flex flex-column align-items-center">
+                    <section class="col-12 col-md-6 js-xc-login-container">
+                     </section>
+                </div>
+
+            </kers-tab>
+
+            
+            
+            <kers-tab name="dhv-login" title="Benutzer vom DHV Serviceportal holen">
+                <div class="d-flex flex-column align-items-center">
+                    <section class="col-12 col-md-6 js-dhv-login-container">
+
+                    </section>
+                </div>
+            </kers-tab>
+
+            
+            
+            <kers-tab name="register" title="Neue XC Registrierung">
+                <div class="d-flex flex-column align-items-center">
+                    <section class="col-12 col-md-6 ">
+
+                    <form class="d-flex flex-column flex-grow-1 position-relative">
+                        <kers-dataview datamode="add" class="js-registration d-flex flex-column flex-grow-1">
+                            <h2 class="dm-view">Vielen Dank für Deine Registrierung</h2>
+                            <h2 class="dm-edit">Registrierung abschließen</h2>
+                            <h2 class="dm-add">Neue XC Registrierung</h2>
+
+                            <section class="dm-add "><div class="mb-4">Bei dieser Registrierungsmethode registrierst Du dich nur lokal im DHV-XC. <br/>
+Wenn du an deutschen Meisterschaften teilnehmen willst, kannst du deinen Serviceportal Benutzer auch nachträglich deinem XC Benutzerprofil zuordnen.
+</div></section>
+
+                            
+                            <section class="dm-add dm-edit pb-5 mb-5">
+
+                                <kers-fieldset>
+                                    <kers-input source="IDRegistration" type="hidden"></kers-input>
+                                </kers-fieldset>
+
+                                <kers-fieldset>
+                                    <kers-input source="RegistrationUid" type="hidden"></kers-input>
+                                </kers-fieldset>
+
+                                <kers-fieldset class="dm-edit mb-4">
+                                    <kers-view source="Username"></kers-view>
+                                    <kers-input source="Username" type="mdb-label-input">Benutzername</kers-input>
+                                </kers-fieldset>
+
+                                <kers-fieldset class="dm-edit mb-4">
+                                    <kers-input input-class="mb-2" source="Password" type="mdb-label-password">Kennwort</kers-input>
+                                    <kers-input source="PasswordConfirm" type="mdb-label-password">Kennwort bestätigen</kers-input>
+                                </kers-fieldset>
+
+                                <kers-fieldset class="mb-4">
+                                                                            <kers-input class="dm-add" source="Email" type="mdb-label-input">E-Mail</kers-input>
+                                                                    </kers-fieldset>
+
+                                <kers-fieldset class="mb-4">
+                                    <kers-view source="FirstName"></kers-view>
+                                    <kers-input source="FirstName" type="mdb-label-input">Vorname</kers-input>
+                                </kers-fieldset>
+
+                                <kers-fieldset class="mb-4">
+                                    <kers-view source="LastName"></kers-view>
+                                    <kers-input source="LastName" type="mdb-label-input">Nachname</kers-input>
+                                </kers-fieldset>
+
+                                <kers-fieldset class="input-group mb-4">
+                                    <span class="input-group-text text-primary fs-7">Geschlecht</span>
+                                    <kers-view source="Gender"></kers-view>
+                                    <kers-input class="form-control p-0 h-100" source="Gender" type="select" input-class="h-100">Geschlecht</kers-input>
+                                    <kers-view source="Nationality"></kers-view>
+                                    <span class="input-group-text text-primary fs-7">Nationalität</span>
+                                    <kers-input class="form-control p-0 h-100" source="Nationality" type="select">Nationalität</kers-input>
+                                </kers-fieldset>
+
+                                <kers-fieldset class="mb-4">
+                                    <kers-view source="Birthdate"></kers-view>
+                                    <kers-input source="Birthdate" type="text" input-placeholder="Geburtsdatum (tt.mm.jjjj)">Geburtsdatum</kers-input>
+                                </kers-fieldset>
+
+
+                                <kers-input
+                                        name="submit"
+                                        type="submit"
+                                        class="d-flex ml-auto bottom-0 position-absolute w-100"
+                                        input-class="btn btn-primary w-100"
+                                >
+                                    Speichern                                </kers-input>
+                            </section>
+
+
+                            <section class="dm-view">
+
+                                <kers-fieldset class="mb-4">
+                                    <kers-view source="Message"></kers-view>
+                                </kers-fieldset>
+
+                                <kers-input
+                                        name="ok"
+                                        type="button"
+                                        class="dm-view d-flex ml-auto"
+                                        input-class="btn btn-secondary w-100"
+                                >
+                                    OK                                </kers-input>
+
+                            </section>
+
+                        </kers-dataview>
+                    </form>
+
+                </section>
+                </div>
+            </kers-tab>
+
+            
+        </kers-tabs>
+
+        <div class="d-none">
+
+        
+            <div class="js-xc-login-content">
+                <h2>Login                </h2>
+
+                
+                <form class="js-login-form d-flex flex-column flex-grow-1" method="post" novalidate="novalidate" data-dhvfetch="0">
+    <!-- Email input -->
+    <div class="form-outline mb-4">
+        <input type="text" id="input-email-1" name="uid" class="form-control"/>
+        <label class="form-label text-primary fs-7" for="input-email-1">Benutzername / Email Adresse</label>
+    </div>
+
+    <!-- Password input -->
+    <div class="form-outline">
+        <input type="password" id="input-password-1" name="pwd" class="form-control"/>
+        <label class="form-label text-primary fs-7" for="input-password-1">Kennwort</label>
+    </div>
+
+    <!-- stay input -->
+    <div class="d-flex">
+        <div class="form-check form-check-inline mt-2 js-checkbox position-relative">
+            <input type="checkbox" id="stay-input-checkbox-1" name="stay" class="form-check-input" value="1"/>
+            <label class="form-label text-primary fs-7" for="stay-input-checkbox-1">Eingeloggt bleiben?</label>
+        </div>
+        <i class="js-hint d-inline-block"></i>
+    </div>
+
+    
+        <small class="ms-auto"><a href="/lostpassword">Kennwort vergessen</a></small>
+
+        <div class="js-explanation-default  pb-3">Bitte logge mit XC Benutzernamen oder Email ein.</div>
+
+    
+    <!-- Submit button -->
+    <button class="mt-4 js-login-ok btn btn-primary btn-block mt-auto" type="button" >LOGIN</button>
+    
+
+    </form>
+
+            </div>
+
+
+        
+        
+            <div class="js-dhv-login-content">
+                <h2>Benutzer vom DHV Serviceportal holen</h2>
+                <section class=""><div class="mb-4">Dies ist die empfohlene Registrierungsmethode, wenn du DHV Mitglied bist und an deutschen Meisterschaften im XC teilnehmen willst. 
+Voraussetzung ist, dass du dich im DHV Serviceportal registriert und dort in deinem DHV Profil die Einstellung "XC Login zulassen" aktiviert hast. <br />
+</div></section>
+
+                <form class="js-login-form d-flex flex-column flex-grow-1" method="post" novalidate="novalidate" data-dhvfetch="1">
+    <!-- Email input -->
+    <div class="form-outline mb-4">
+        <input type="text" id="input-email-1" name="uid" class="form-control"/>
+        <label class="form-label text-primary fs-7" for="input-email-1">Benutzername / Email Adresse</label>
+    </div>
+
+    <!-- Password input -->
+    <div class="form-outline">
+        <input type="password" id="input-password-1" name="pwd" class="form-control"/>
+        <label class="form-label text-primary fs-7" for="input-password-1">Kennwort</label>
+    </div>
+
+    <!-- stay input -->
+    <div class="d-flex">
+        <div class="form-check form-check-inline mt-2 js-checkbox position-relative">
+            <input type="checkbox" id="stay-input-checkbox-1" name="stay" class="form-check-input" value="1"/>
+            <label class="form-label text-primary fs-7" for="stay-input-checkbox-1">Eingeloggt bleiben?</label>
+        </div>
+        <i class="js-hint d-inline-block"></i>
+    </div>
+
+    
+        <small class="ms-auto"><a href="https://service.dhv.de" target="_blank">DHV Registrierung / Kennwort vergessen</a></small>
+
+        <div class="js-explanation-dhv pb-3">Bitte logge mit deinem DHV Serviceportal Zugang ein.<br/><small class="fs-8 d-flex"><i class="fas fa-info-circle me-2"></i><span>Wenn dieser noch nicht mit einem XC Benutzer verknüpft ist, wird ein neuer verknüpfter XC Benutzer angelegt</span></small></div>
+
+    
+    <!-- Submit button -->
+    <button class="mt-4 js-login-ok btn btn-primary btn-block mt-auto" type="button" >LOGIN</button>
+    
+
+    </form>
+
+            </div>
+
+        
+        </div>
+
+        <div class="row ">
+
+
+
+                    </div>
+    </article>
+
+
+
+
+
+        <!-- Content end -->
+        </div>
+
+    </main>
+
+    <article class="bg-light container-fluid py-4">
+        <div class="container">
+
+            <h2>Unsere Werbepartner</h2>
+            <div class="d-flex flex-row flex-wrap justify-content-evenly">
+                <a class="position-relative pt-4 me-2" href="https://www.dhv.de/db2/link.php?id=1109" target="_blank" title="Check by BauAir">
+                    <img src="//www.dhv.de/dbfiles/wbg/images/BauAir_Anzeige_150x120px.gif" alt="Check by BauAir" border="0">
+                    <small class="position-absolute start-0 top-0">- Anzeige -</small>
+                </a>
+
+                <a class="position-relative pt-4 me-2" href="https://www.dhv.de/db2/link.php?id=1273" target="_blank" title="air cross :: high performance gliders">
+                    <img src="//www.dhv.de/dbfiles/wbg/images/kontest_dhvxc_2020.gif" alt="air cross :: high performance gliders" border="0">
+                    <small class="position-absolute start-0 top-0">- Anzeige -</small>
+                </a>
+
+                <a class="position-relative pt-4 me-2" href="https://www.dhv.de/db2/link.php?id=1296" target="_blank" title="u-turn :: your airline">
+                    <img src="//www.dhv.de/dbfiles/wbg/images/uturn17xc.gif" alt="u-turn :: your airline" border="0">
+                    <small class="position-absolute start-0 top-0">- Anzeige -</small>
+                </a>
+
+                <a class="position-relative pt-4 me-2" href="https://www.dhv.de/db2/link.php?id=1277" target="_blank" title="AUS LEIDENSCHAFT AM FLIEGEM">
+                    <img src="//www.dhv.de/dbfiles/wbg/images/skywalk_22_150x120.gif" alt="AUS LEIDENSCHAFT AM FLIEGEM" border="0">
+                    <small class="position-absolute start-0 top-0">- Anzeige -</small>
+                </a>
+
+                <a class="position-relative pt-4 me-2" href="https://www.dhv.de/db2/link.php?id=1295" target="_blank" title="Garmin">
+                    <img src="//www.dhv.de/dbfiles/wbg/images/Garmin_03.23_vert.gif" alt="Garmin" border="0">
+                    <small class="position-absolute start-0 top-0">- Anzeige -</small>
+                </a>
+
+                <a class="position-relative pt-4 me-2" href="https://www.dhv.de/db2/link.php?id=1257" target="_blank" title="we love paragliding">
+                    <img src="//www.dhv.de/dbfiles/wbg/images/ad1.gif" alt="we love paragliding" border="0">
+                    <small class="position-absolute start-0 top-0">- Anzeige -</small>
+                </a>
+
+                <a class="position-relative pt-4 me-2" href="https://www.dhv.de/db2/link.php?id=1300" target="_blank" title="phi - the brand by hannes papesh">
+                    <img src="//www.dhv.de/dbfiles/wbg/images/PHI_2021.gif" alt="phi - the brand by hannes papesh" border="0">
+                    <small class="position-absolute start-0 top-0">- Anzeige -</small>
+                </a>
+
+                <a class="position-relative pt-4 me-2" href="https://www.dhv.de/db2/link.php?id=1302" target="_blank" title="Bruce Goldsmith Design">
+                    <img src="//www.dhv.de/dbfiles/wbg/images/bgd_12_2018.gif" alt="Bruce Goldsmith Design" border="0">
+                    <small class="position-absolute start-0 top-0">- Anzeige -</small>
+                </a>
+
+                <a class="position-relative pt-4 me-2" href="https://www.dhv.de/db2/link.php?id=1299" target="_blank" title="Icaro - Fly and More">
+                    <img src="//www.dhv.de/dbfiles/wbg/images/icaro_6.21_gravis.gif" alt="Icaro - Fly and More" border="0">
+                    <small class="position-absolute start-0 top-0">- Anzeige -</small>
+                </a>
+
+                <a class="position-relative pt-4 me-2" href="https://www.dhv.de/db2/link.php?id=1293" target="_blank" title="GUT ABGESICHERT --- HDI">
+                    <img src="//www.dhv.de/dbfiles/wbg/images/hdi_xc_gb.gif" alt="GUT ABGESICHERT --- HDI" border="0">
+                    <small class="position-absolute start-0 top-0">- Anzeige -</small>
+                </a>
+
+                <a class="position-relative pt-4 me-2" href="https://www.dhv.de/db2/link.php?id=1251" target="_blank" title="Länger Fliegen">
+                    <img src="//www.dhv.de/dbfiles/wbg/images/urinal_2019.gif" alt="Länger Fliegen" border="0">
+                    <small class="position-absolute start-0 top-0">- Anzeige -</small>
+                </a>
+
+                <!--
+                Banner11
+                -->
+
+                <a class="position-relative pt-4 me-2" href="https://www.dhv.de/db2/link.php?id=1303" target="_blank" title="">
+                    <img src="//www.dhv.de/dbfiles/wbg/images/Skyman-150x120_01.23.gif" alt="" border="0">
+                    <small class="position-absolute start-0 top-0">- Anzeige -</small>
+                </a>
+
+                <a class="position-relative pt-4 me-2" href="https://www.dhv.de/db2/link.php?id=1290" target="_blank" title="= fly it your way =">
+                    <img src="//www.dhv.de/dbfiles/wbg/images/Independence__150x120_01.23.gif" alt="= fly it your way =" border="0">
+                    <small class="position-absolute start-0 top-0">- Anzeige -</small>
+                </a>
+
+            </div>
+
+        </div>
+
+    </article>
+
+
+    <footer class="container-fluid bg-primary mt-4">
+        <kers-toaster class="position-fixed bottom-0 end-0 p-3"></kers-toaster>
+        <section class="d-flex flex-column flex-md-row justify-content-between p-4">
+            <!-- Links start -->
+            <div>
+                <img src="/assets/img/xc/dhv_logo_white.png" alt="" height="30"/>
+            </div>
+            <!-- Links end -->
+
+            <!-- Rechts start -->
+            <div class="js-footer d-flex flex-column d-sm-block">
+                <a class="text-white px-3" href="/">Home</a>
+                <span class="d-none d-sm-inline">|</span>
+                <a class="text-white px-3" href="/info#relase-infos">DHV-XC Release-Informationen</a>
+                <span class="d-none d-sm-inline">|</span>
+                <a class="text-white px-3"  href="/info/impressum">Impressum</a>
+                <span class="d-none d-sm-inline">|</span>
+                <a class="text-white px-3"  href="/info/datenschutz">Datenschutz</a>
+                <span class="d-none d-sm-inline">|</span>
+                <a class="text-white ps-3"  href="/info/nutzungsvereinbarung">Nutzungsvereinbarung</a>
+                <span class="d-none d-sm-inline">|</span>
+                <a class="text-white ps-3"  href="/login">Login / Registrierung</a>
+            </div>
+            <!-- Rechts end -->
+
+        </section>
+
+    </footer>
+    
+
+<script type="text/javascript" src="/v.f335484/assets/js/kersapp/xc-de.min.js"></script>
+<script type="text/javascript" src="/v.f335484/assets/js/kersapp/app/pil/handler/registration.min.js"></script>
+
+<script type="text/javascript">
+//<![CDATA[
+kers.reportErrors(true, '');
+kers.setLocale('de');
+kers.setUrlBase('');
+
+jc.token = '82108550e88219d36ed514c92a187294';
+
+$(document).ready(function() {
+if ($.fn.autocomplete && $.fn.autocomplete.noConflict) $.fn.autocomplete.noConflict();
+if ($.fn.datepicker && $.fn.datepicker.noConflict) $.fn.datepicker.noConflict();
+if ($.fn.modal && $.fn.modal.noConflict) $.fn.modal.noConflict();
+kers.app.xc.handler.init({"currentPilot":{"IDPilot":-1,"Username":"Anonymous","DhvAddressID":null,"LastVisitTime":"1970-01-01 01:00:00","Email":"","DsgvoConsentTime":null,"DsgvoConsentVersion":null,"Nationality":null,"ResidenceCountry":null,"FKResidenceRegion":null,"CivlID":null,"CivlName":"","FKFederation":null,"FederationMemberID":null,"ClubID":null,"FirstName":"","LastName":"","Gender":"","Birthdate":null,"ShowPilotPhoto":0,"FirstOlcYear":null,"UserSettings":null,"Sponsor":"","OtherInterests":"","PersonalWebPage":"","PersonalDistance":"","PersonalHeight":"","FlyingSince":"","HoursFlown":"","HoursPerYear":"","Vario":"","GPS":"","Harness":"","Reserve":"","Helmet":"","CommentsEnabled":1,"roles":[]},"enableLangSelect":true,"dhvloginEndpoint":"https:\/\/service.dhv.de","stayloggedinDays":90,"config":{"submitWindowDays":14,"season":{"min":2000,"max":2024,"current":2024,"start":"2023-09-16","end":"2024-09-15"}}});
+
+kers.app.pil.handler.init({"registration":[],"collection":{"pil-gender":[{"value":"M","label":"M"},{"value":"F","label":"W"},{"value":"D","label":"D"}],"geo-country":[{"value":"DE","label":"Deutschland","fkContinent":"1"},{"value":"BE","label":"Belgien","fkContinent":"1"},{"value":"FR","label":"Frankreich","fkContinent":"1"},{"value":"IT","label":"Italien","fkContinent":"1"},{"value":"NL","label":"Niederlande","fkContinent":"1"},{"value":"AT","label":"\u00d6sterreich","fkContinent":"1"},{"value":"PL","label":"Polen","fkContinent":"1"},{"value":"CH","label":"Schweiz","fkContinent":"1"},{"value":"CZ","label":"Tschechische Republik","fkContinent":"1"},{"value":"AL","label":"Albanien","fkContinent":"1"},{"value":"AD","label":"Andorra","fkContinent":"1"},{"value":"BY","label":"Belarus","fkContinent":"1"},{"value":"BA","label":"Bosnien und Herzegowina","fkContinent":"1"},{"value":"BG","label":"Bulgarien","fkContinent":"1"},{"value":"DK","label":"D\u00e4nemark","fkContinent":"1"},{"value":"EE","label":"Estland","fkContinent":"1"},{"value":"FO","label":"F\u00e4r\u00f6er","fkContinent":"1"},{"value":"FI","label":"Finnland","fkContinent":"1"},{"value":"GI","label":"Gibraltar","fkContinent":"1"},{"value":"GR","label":"Griechenland","fkContinent":"1"},{"value":"IE","label":"Irland","fkContinent":"1"},{"value":"IS","label":"Island","fkContinent":"1"},{"value":"XK","label":"Kosovo","fkContinent":"1"},{"value":"HR","label":"Kroatien","fkContinent":"1"},{"value":"LV","label":"Lettland","fkContinent":"1"},{"value":"LI","label":"Liechtenstein","fkContinent":"1"},{"value":"LT","label":"Litauen","fkContinent":"1"},{"value":"LU","label":"Luxemburg","fkContinent":"1"},{"value":"MT","label":"Malta","fkContinent":"1"},{"value":"MK","label":"Mazedonien","fkContinent":"1"},{"value":"MC","label":"Monaco","fkContinent":"1"},{"value":"ME","label":"Montenegro","fkContinent":"1"},{"value":"NO","label":"Norwegen","fkContinent":"1"},{"value":"PT","label":"Portugal","fkContinent":"1"},{"value":"MD","label":"Republik Moldau","fkContinent":"1"},{"value":"RO","label":"Rum\u00e4nien","fkContinent":"1"},{"value":"SM","label":"San Marino","fkContinent":"1"},{"value":"SE","label":"Schweden","fkContinent":"1"},{"value":"CS","label":"Serbien und Montenegro","fkContinent":"1"},{"value":"SK","label":"Slowakei","fkContinent":"1"},{"value":"SI","label":"Slowenien","fkContinent":"1"},{"value":"ES","label":"Spanien","fkContinent":"1"},{"value":"SJ","label":"Svalbard und Jan Mayen","fkContinent":"1"},{"value":"UA","label":"Ukraine","fkContinent":"1"},{"value":"HU","label":"Ungarn","fkContinent":"1"},{"value":"VA","label":"Vatikanstadt","fkContinent":"1"},{"value":"GB","label":"Vereinigtes K\u00f6nigreich","fkContinent":"1"},{"value":"CY","label":"Zypern","fkContinent":"1"},{"value":"AF","label":"Afghanistan","fkContinent":"5"},{"value":"EG","label":"\u00c4gypten","fkContinent":"4"},{"value":"AX","label":"Alandinseln","fkContinent":null},{"value":"DZ","label":"Algerien","fkContinent":"4"},{"value":"UM","label":"Amerikanisch-Ozeanien","fkContinent":null},{"value":"AS","label":"Amerikanisch-Samoa","fkContinent":"6"},{"value":"VI","label":"Amerikanische Jungferninseln","fkContinent":"3"},{"value":"AO","label":"Angola","fkContinent":"4"},{"value":"AI","label":"Anguilla","fkContinent":"3"},{"value":"AQ","label":"Antarktis","fkContinent":null},{"value":"AG","label":"Antigua und Barbuda","fkContinent":"3"},{"value":"GQ","label":"\u00c4quatorialguinea","fkContinent":"4"},{"value":"AR","label":"Argentinien","fkContinent":"2"},{"value":"AM","label":"Armenien","fkContinent":"5"},{"value":"AW","label":"Aruba","fkContinent":"3"},{"value":"AZ","label":"Aserbaidschan","fkContinent":"5"},{"value":"ET","label":"\u00c4thiopien","fkContinent":"4"},{"value":"AU","label":"Australien","fkContinent":"6"},{"value":"BS","label":"Bahamas","fkContinent":"3"},{"value":"BH","label":"Bahrain","fkContinent":"5"},{"value":"BD","label":"Bangladesch","fkContinent":"5"},{"value":"BB","label":"Barbados","fkContinent":"3"},{"value":"BZ","label":"Belize","fkContinent":"3"},{"value":"BJ","label":"Benin","fkContinent":"4"},{"value":"BM","label":"Bermuda","fkContinent":"3"},{"value":"BT","label":"Bhutan","fkContinent":"5"},{"value":"BO","label":"Bolivien","fkContinent":"2"},{"value":"BW","label":"Botsuana","fkContinent":"4"},{"value":"BV","label":"Bouvetinsel","fkContinent":null},{"value":"BR","label":"Brasilien","fkContinent":"2"},{"value":"VG","label":"Britische Jungferninseln","fkContinent":"3"},{"value":"IO","label":"Britisches Territorium im Indischen Ozean","fkContinent":null},{"value":"BN","label":"Brunei Darussalam","fkContinent":"5"},{"value":"BF","label":"Burkina Faso","fkContinent":"4"},{"value":"BI","label":"Burundi","fkContinent":"4"},{"value":"CL","label":"Chile","fkContinent":"2"},{"value":"CN","label":"China","fkContinent":"5"},{"value":"CK","label":"Cookinseln","fkContinent":"6"},{"value":"CR","label":"Costa Rica","fkContinent":"3"},{"value":"CI","label":"C\u00f4te d\u2019Ivoire","fkContinent":"4"},{"value":"CD","label":"Demokratische Republik Kongo","fkContinent":null},{"value":"KP","label":"Demokratische Volksrepublik Korea","fkContinent":"5"},{"value":"DM","label":"Dominica","fkContinent":"3"},{"value":"DO","label":"Dominikanische Republik","fkContinent":"3"},{"value":"DJ","label":"Dschibuti","fkContinent":"4"},{"value":"EC","label":"Ecuador","fkContinent":"2"},{"value":"SV","label":"El Salvador","fkContinent":"3"},{"value":"ER","label":"Eritrea","fkContinent":"4"},{"value":"FK","label":"Falklandinseln","fkContinent":"2"},{"value":"FJ","label":"Fidschi","fkContinent":"6"},{"value":"GF","label":"Franz\u00f6sisch-Guayana","fkContinent":"2"},{"value":"PF","label":"Franz\u00f6sisch-Polynesien","fkContinent":"6"},{"value":"TF","label":"Franz\u00f6sische S\u00fcd- und Antarktisgebiete","fkContinent":null},{"value":"GA","label":"Gabun","fkContinent":"4"},{"value":"GM","label":"Gambia","fkContinent":"4"},{"value":"GE","label":"Georgien","fkContinent":"5"},{"value":"GH","label":"Ghana","fkContinent":"4"},{"value":"GD","label":"Grenada","fkContinent":"3"},{"value":"GL","label":"Gr\u00f6nland","fkContinent":"3"},{"value":"GP","label":"Guadeloupe","fkContinent":"3"},{"value":"GU","label":"Guam","fkContinent":"6"},{"value":"GT","label":"Guatemala","fkContinent":"3"},{"value":"GG","label":"Guernsey","fkContinent":null},{"value":"GN","label":"Guinea","fkContinent":"4"},{"value":"GW","label":"Guinea-Bissau","fkContinent":"4"},{"value":"GY","label":"Guyana","fkContinent":"2"},{"value":"HT","label":"Haiti","fkContinent":"3"},{"value":"HM","label":"Heard- und McDonald-Inseln","fkContinent":null},{"value":"HN","label":"Honduras","fkContinent":"3"},{"value":"IN","label":"Indien","fkContinent":"5"},{"value":"ID","label":"Indonesien","fkContinent":"5"},{"value":"IQ","label":"Irak","fkContinent":"5"},{"value":"IR","label":"Iran","fkContinent":"5"},{"value":"IM","label":"Isle of Man","fkContinent":null},{"value":"IL","label":"Israel","fkContinent":"5"},{"value":"JM","label":"Jamaika","fkContinent":"3"},{"value":"JP","label":"Japan","fkContinent":"5"},{"value":"YE","label":"Jemen","fkContinent":"5"},{"value":"JE","label":"Jersey","fkContinent":null},{"value":"JO","label":"Jordanien","fkContinent":"5"},{"value":"KY","label":"Kaimaninseln","fkContinent":"3"},{"value":"KH","label":"Kambodscha","fkContinent":"5"},{"value":"CM","label":"Kamerun","fkContinent":"4"},{"value":"CA","label":"Kanada","fkContinent":"3"},{"value":"CV","label":"Kap Verde","fkContinent":"4"},{"value":"KZ","label":"Kasachstan","fkContinent":"5"},{"value":"QA","label":"Katar","fkContinent":"5"},{"value":"KE","label":"Kenia","fkContinent":"4"},{"value":"KG","label":"Kirgisistan","fkContinent":"5"},{"value":"KI","label":"Kiribati","fkContinent":"6"},{"value":"CC","label":"Kokosinseln","fkContinent":"5"},{"value":"CO","label":"Kolumbien","fkContinent":"2"},{"value":"KM","label":"Komoren","fkContinent":"4"},{"value":"CG","label":"Kongo","fkContinent":"4"},{"value":"CU","label":"Kuba","fkContinent":"3"},{"value":"KW","label":"Kuwait","fkContinent":"5"},{"value":"LA","label":"Laos","fkContinent":"5"},{"value":"LS","label":"Lesotho","fkContinent":"4"},{"value":"LB","label":"Libanon","fkContinent":"5"},{"value":"LR","label":"Liberia","fkContinent":"4"},{"value":"LY","label":"Libyen","fkContinent":"4"},{"value":"MG","label":"Madagaskar","fkContinent":"4"},{"value":"MW","label":"Malawi","fkContinent":"4"},{"value":"MY","label":"Malaysia","fkContinent":"5"},{"value":"MV","label":"Malediven","fkContinent":"5"},{"value":"ML","label":"Mali","fkContinent":"4"},{"value":"MA","label":"Marokko","fkContinent":"4"},{"value":"MH","label":"Marshallinseln","fkContinent":"6"},{"value":"MQ","label":"Martinique","fkContinent":"3"},{"value":"MR","label":"Mauretanien","fkContinent":"4"},{"value":"MU","label":"Mauritius","fkContinent":"4"},{"value":"YT","label":"Mayotte","fkContinent":"4"},{"value":"MX","label":"Mexiko","fkContinent":"3"},{"value":"FM","label":"Mikronesien","fkContinent":"6"},{"value":"MN","label":"Mongolei","fkContinent":"5"},{"value":"MS","label":"Montserrat","fkContinent":"3"},{"value":"MZ","label":"Mosambik","fkContinent":"4"},{"value":"MM","label":"Myanmar","fkContinent":"5"},{"value":"NA","label":"Namibia","fkContinent":"4"},{"value":"NR","label":"Nauru","fkContinent":"6"},{"value":"NP","label":"Nepal","fkContinent":"5"},{"value":"NC","label":"Neukaledonien","fkContinent":"6"},{"value":"NZ","label":"Neuseeland","fkContinent":"6"},{"value":"NI","label":"Nicaragua","fkContinent":"3"},{"value":"AN","label":"Niederl\u00e4ndische Antillen","fkContinent":"3"},{"value":"NE","label":"Niger","fkContinent":"4"},{"value":"NG","label":"Nigeria","fkContinent":"4"},{"value":"NU","label":"Niue","fkContinent":"6"},{"value":"MP","label":"N\u00f6rdliche Marianen","fkContinent":"6"},{"value":"NF","label":"Norfolkinsel","fkContinent":"6"},{"value":"OM","label":"Oman","fkContinent":"5"},{"value":"TL","label":"Osttimor","fkContinent":null},{"value":"PK","label":"Pakistan","fkContinent":"5"},{"value":"PS","label":"Pal\u00e4stinensische Gebiete","fkContinent":null},{"value":"PW","label":"Palau","fkContinent":"6"},{"value":"PA","label":"Panama","fkContinent":"3"},{"value":"PG","label":"Papua-Neuguinea","fkContinent":"6"},{"value":"PY","label":"Paraguay","fkContinent":"2"},{"value":"PE","label":"Peru","fkContinent":"2"},{"value":"PH","label":"Philippinen","fkContinent":"5"},{"value":"PN","label":"Pitcairn","fkContinent":"6"},{"value":"PR","label":"Puerto Rico","fkContinent":"3"},{"value":"KR","label":"Republik Korea","fkContinent":"5"},{"value":"RE","label":"R\u00e9union","fkContinent":"4"},{"value":"RW","label":"Ruanda","fkContinent":"4"},{"value":"RU","label":"Russische F\u00f6deration","fkContinent":"5"},{"value":"SB","label":"Salomonen","fkContinent":"6"},{"value":"ZM","label":"Sambia","fkContinent":"4"},{"value":"WS","label":"Samoa","fkContinent":"6"},{"value":"ST","label":"S\u00e3o Tom\u00e9 und Pr\u00edncipe","fkContinent":"4"},{"value":"SA","label":"Saudi-Arabien","fkContinent":"5"},{"value":"SN","label":"Senegal","fkContinent":"4"},{"value":"RS","label":"Serbien","fkContinent":null},{"value":"SC","label":"Seychellen","fkContinent":"4"},{"value":"SL","label":"Sierra Leone","fkContinent":"4"},{"value":"ZW","label":"Simbabwe","fkContinent":"4"},{"value":"SG","label":"Singapur","fkContinent":"5"},{"value":"SO","label":"Somalia","fkContinent":"4"},{"value":"HK","label":"Sonderverwaltungszone Hongkong","fkContinent":null},{"value":"MO","label":"Sonderverwaltungszone Macao","fkContinent":null},{"value":"LK","label":"Sri Lanka","fkContinent":"5"},{"value":"BL","label":"St. Barth\u00e9lemy","fkContinent":null},{"value":"SH","label":"St. Helena","fkContinent":null},{"value":"KN","label":"St. Kitts und Nevis","fkContinent":"3"},{"value":"LC","label":"St. Lucia","fkContinent":"3"},{"value":"MF","label":"St. Martin","fkContinent":null},{"value":"PM","label":"St. Pierre und Miquelon","fkContinent":"3"},{"value":"VC","label":"St. Vincent und die Grenadinen","fkContinent":"3"},{"value":"ZA","label":"S\u00fcdafrika","fkContinent":"4"},{"value":"SD","label":"Sudan","fkContinent":"4"},{"value":"GS","label":"S\u00fcdgeorgien und die S\u00fcdlichen Sandwichinseln","fkContinent":null},{"value":"SR","label":"Suriname","fkContinent":"2"},{"value":"SZ","label":"Swasiland","fkContinent":"4"},{"value":"SY","label":"Syrien","fkContinent":"5"},{"value":"TJ","label":"Tadschikistan","fkContinent":"5"},{"value":"TW","label":"Taiwan","fkContinent":"5"},{"value":"TZ","label":"Tansania","fkContinent":"4"},{"value":"TH","label":"Thailand","fkContinent":"5"},{"value":"TG","label":"Togo","fkContinent":"4"},{"value":"TK","label":"Tokelau","fkContinent":"6"},{"value":"TO","label":"Tonga","fkContinent":"6"},{"value":"TT","label":"Trinidad und Tobago","fkContinent":"3"},{"value":"TD","label":"Tschad","fkContinent":"4"},{"value":"TN","label":"Tunesien","fkContinent":"4"},{"value":"TR","label":"T\u00fcrkei","fkContinent":"5"},{"value":"TM","label":"Turkmenistan","fkContinent":"5"},{"value":"TC","label":"Turks- und Caicosinseln","fkContinent":"3"},{"value":"TV","label":"Tuvalu","fkContinent":"6"},{"value":"UG","label":"Uganda","fkContinent":"4"},{"value":"UY","label":"Uruguay","fkContinent":"2"},{"value":"UZ","label":"Usbekistan","fkContinent":"5"},{"value":"VU","label":"Vanuatu","fkContinent":"6"},{"value":"VE","label":"Venezuela","fkContinent":"2"},{"value":"AE","label":"Vereinigte Arabische Emirate","fkContinent":"5"},{"value":"US","label":"Vereinigte Staaten","fkContinent":"3"},{"value":"VN","label":"Vietnam","fkContinent":"5"},{"value":"WF","label":"Wallis und Futuna","fkContinent":"6"},{"value":"CX","label":"Weihnachtsinsel","fkContinent":"5"},{"value":"EH","label":"Westsahara","fkContinent":"4"},{"value":"CF","label":"Zentralafrikanische Republik","fkContinent":"4"}]}});
+
+});
+
+//]]>
+</script>
+
+
+
+<!-- Code für Feedback-Tool -->
+<script>
+function initUserback () {
+    window.Userback = window.Userback || {};
+    Userback.access_token = '32486|59494|1sfAB5xjQQyQejyTAh8O2M75r';
+    (function(d) {
+        var s = d.createElement('script');s.async = true;
+        s.src = 'https://static.userback.io/widget/v1.js';
+        (d.head || d.body).appendChild(s);
+    })(document);
+}
+</script><!-- Ende Code Feedback-Tool -->
+
+
+
+</body>
+</html>

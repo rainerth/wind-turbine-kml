@@ -1,5 +1,6 @@
 *.dae
 *.kml
+*.igc
 WEA*.kmz
 testturm*.kmz
 
