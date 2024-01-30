@@ -1,3 +1,4 @@
+.env
 *.dae
 *.kml
 WEA*.kmz
@@ -18,4 +19,9 @@ __pycache__/
 # ignore the ipython notebook checkpoints
 .ipynb_checkpoints
 
+collada_wt.egg-info/*
+build/*
+dist/*
+
 papers/*
+tracks/*
