@@ -230,8 +230,8 @@ if __name__ == "__main__":
 
   logbook = []
 
-  #fileparam = sys.argv[1]
-  fileparam = os.path.abspath('./tracks/DHV-XC-2023-09-24-HHÜ-1778809.igc')
+  fileparam = sys.argv[1]
+  #fileparam = os.path.abspath('./tracks/DHV-XC-2023-09-24-HHÜ-1778809.igc')
   if os.path.isfile(fileparam):
     logbook.append({'igcfile': os.path.abspath(fileparam)})
     print ("Single IGC file supplied: {}".format(logbook[-1]['igcfile']))
