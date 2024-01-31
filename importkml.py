@@ -49,25 +49,28 @@ def extract_first_absolute_altitude_section(kml_path):
 # Path to the uploaded KML file
 kml_path = './tracks/dhv/2019_1061396.kml'
 
-coordinates_df = extract_first_absolute_altitude_section(kml_path)
+coordinates_df = extract_first_absolute_altitude_section(kml_path).astype(float)
 
 # remove coordinates with altitude < 720 and altitude > 1000
-coordinates_df = coordinates_df[coordinates_df['Altitude'] >= 720]
-coordinates_df = coordinates_df[coordinates_df['Altitude'] <= 1700]
+coordinates_df = coordinates_df[coordinates_df['Altitude'] >= 710]
+coordinates_df = coordinates_df[coordinates_df['Altitude'] <= 1500]
 
 # add a column with the mean of the last 10 altitude differences between coordinates
 coordinates_df['Altitude_Diff'] = coordinates_df['Altitude'].diff()
 coordinates_df['Altitude_Diff'] = coordinates_df['Altitude_Diff'].rolling(10).mean()
 
-# print number of rows
-print(len(coordinates_df))
+# find first index where Altitude_Diff < 0
+release_towline = coordinates_df[coordinates_df['Altitude_Diff'] < 0].index[0]
+print (
+	f"Release towline at index {release_towline} with altitude {coordinates_df['Altitude'][release_towline]}"
+)
 
-# drop rows after first Altitude_Diff < 0
-coordinates_df = coordinates_df[coordinates_df['Altitude_Diff'] >= 0]
-
+# drop all rows after index 100
+coordinates_df = coordinates_df.drop(coordinates_df.index[release_towline:])
 
 # write the coordinates to a csv file
-coordinates_df.to_csv('coordinates.csv', index=False)
+coordinates_df.to_csv(kml_path + '.csv', index=False)
+
 
 # Print the first 5 rows of the DataFrame
 print(coordinates_df.head(100))
