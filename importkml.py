@@ -47,13 +47,14 @@ def extract_first_absolute_altitude_section(kml_path):
 
 
 # Path to the uploaded KML file
-kml_path = './tracks/dhv/2019_1061396.kml'
+kml_path = './tracks/dhv/2021_1414910.kml'
 
 coordinates_df = extract_first_absolute_altitude_section(kml_path).astype(float)
 
 # remove coordinates with altitude < 720 and altitude > 1000
 coordinates_df = coordinates_df[coordinates_df['Altitude'] >= 710]
 coordinates_df = coordinates_df[coordinates_df['Altitude'] <= 1500]
+coordinates_df = coordinates_df.reset_index(drop=True)
 
 # add a column with the mean of the last 10 altitude differences between coordinates
 coordinates_df['Altitude_Diff'] = coordinates_df['Altitude'].diff()
