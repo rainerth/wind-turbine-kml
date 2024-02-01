@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import re as regex
 
-def extract_first_absolute_altitude_section(kml_path):
+def kml_extract_altitude_section(kml_path):
 	"""
 	Correctly extracts the first section of coordinates with altitudeMode set to 'absolute' from a KML file,
 	maintaining the original order in the file: longitude, latitude, altitude.
@@ -63,7 +63,7 @@ def extract_first_absolute_altitude_section(kml_path):
 		return None, None, None
 
 
-def extract_launch_phase(kml_path, min_altitude=720, max_altitude=1700, min_climb_rate=0):
+def kml_extract_launch_phase(kml_path, min_altitude=710, max_altitude=1500, min_climb_rate=0):
 	"""
 	Extracts the first section of coordinates with altitudeMode set to 'absolute' from a KML file,
 	maintaining the original order in the file: longitude, latitude, altitude.
@@ -76,31 +76,45 @@ def extract_launch_phase(kml_path, min_altitude=720, max_altitude=1700, min_clim
 	  or None if no such section is found.
 	"""
 
-	coordinates_df, link, extracted_number = extract_first_absolute_altitude_section(kml_path)
+	rolling_mean_window = 10
 
-	# remove coordinates with altitude < 720 and altitude > 1000
-	coordinates_df = coordinates_df[coordinates_df['Altitude'] >= min_altitude]
-	coordinates_df = coordinates_df[coordinates_df['Altitude'] <= max_altitude]
+	try:
+		coordinates_df, link, extracted_number = kml_extract_altitude_section(kml_path)
 
-	# add a column with the mean of the last 10 altitude differences between coordinates
-	coordinates_df['Altitude_Diff'] = coordinates_df['Altitude'].diff()
-	coordinates_df['Altitude_Diff'] = coordinates_df['Altitude_Diff'].rolling(10).mean()
+		# remove coordinates with altitude < 720 and altitude > 1000
+		coordinates_df = coordinates_df[coordinates_df['Altitude'] >= min_altitude]
+		coordinates_df = coordinates_df[coordinates_df['Altitude'] <= max_altitude]
 
-	# find first index where Altitude_Diff < 0
-	release_towline = coordinates_df[coordinates_df['Altitude_Diff'] < 0].index[0]
-	print (
-		f"Release towline at index {release_towline} with altitude {coordinates_df['Altitude'][release_towline]}"
-	)
+		# add a column with the mean of the last 10 altitude differences between coordinates
+		coordinates_df['Altitude_Diff'] = coordinates_df['Altitude'].diff()
+		coordinates_df['Altitude_Diff'] = coordinates_df['Altitude_Diff'].rolling(rolling_mean_window).mean()
+		coordinates_df = coordinates_df.reset_index(drop=True)
 
-	# drop all rows after index 100
-	coordinates_df = coordinates_df.drop(coordinates_df.index[release_towline:])
+		# find first index where Altitude_Diff < 0
+		release_towline = coordinates_df[coordinates_df['Altitude_Diff'] < 0].index[0]
+		print (
+			f"{kml_path}: Release towline at index {release_towline} with altitude {coordinates_df['Altitude'][release_towline]}"
+		)
 
-	# write the coordinates to a csv file
-	coordinates_df.to_csv(kml_path + '.csv', index=False)
+		# check if there are enough coordinates before the release of the towline
+		if release_towline-rolling_mean_window > rolling_mean_window:
+			# drop all rows after index 100
+			coordinates_df = coordinates_df.drop(coordinates_df.index[release_towline-rolling_mean_window:])
 
-	# Print the first 5 rows of the DataFrame
-	print(coordinates_df.head(20))
-	print(coordinates_df.tail(20))
-	return coordinates_df, link, extracted_number
+			# write the coordinates to a csv file
+			coordinates_df.to_csv(kml_path + '.csv', index=False)
 
+			if (0):
+				# Print the first 5 rows of the DataFrame
+				print(coordinates_df.head(20))
+				print(coordinates_df.tail(20))
+
+			return coordinates_df, link, extracted_number
+
+		else:
+			return None, None, None
+
+	except Exception as e:
+		print(f"Error processing KML file: {e}")
+		return None, None, None
 
