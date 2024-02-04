@@ -3,6 +3,10 @@ import pandas as pd
 import os
 import re as regex
 
+def get_namespace(element):
+	m = regex.match('\{.*\}', element.tag)
+	return m.group(0).lstrip('{').rstrip('}') if m else ''
+
 def kml_extract_altitude_section(kml_path):
 	"""
 	Correctly extracts the first section of coordinates with altitudeMode set to 'absolute' from a KML file,
@@ -23,16 +27,18 @@ def kml_extract_altitude_section(kml_path):
 	# Define the namespace for atom elements
 	namespaces = {'atom': 'http://www.w3.org/2005/Atom'}
 
-	# Find the <atom:link> tag and extract the href attribute
-	link = root.find('.//atom:link', namespaces=namespaces).attrib['href']
+	try:
+		# Find the <atom:link> tag and extract the href attribute
+		link = root.find('.//atom:link', namespaces=namespaces).attrib['href']
+		# Use a regular expression to extract the number
+		number_match = regex.search(r'https://www.dhv-xc.de/flight/(\d+)', link)
+		if number_match:
+			flight_name = number_match.group(1)
 
-	# Use a regular expression to extract the number
-	number_match = regex.search(r'https://www.dhv-xc.de/flight/(\d+)', link)
+	except Exception as e:
+		link = None
+		flight_name = kml_path
 
-	if number_match:
-		extracted_number = number_match.group(1)
-	else:
-		extracted_number = None
 
 	try:
 		# Parse the KML file
@@ -40,7 +46,12 @@ def kml_extract_altitude_section(kml_path):
 		root = tree.getroot()
 
 		# Define namespaces to search for specific tags accurately
-		namespaces = {'kml': 'http://www.opengis.net/kml/2.2'}
+		# namespaces = {'kml': 'http://www.opengis.net/kml/2.2'}
+		# namespaces = {'kml': 'http://earth.google.com/kml/2.0'}
+		namespaces = {'kml' : get_namespace(root)}
+		namespaces.update({'gx': 'http://www.google.com/kml/ext/2.2'})
+		namespaces.update({'atom': 'http://www.w3.org/2005/Atom'})
+
 
 		# Find all Placemark elements
 		for placemark in root.findall('.//kml:Placemark', namespaces):
@@ -55,7 +66,7 @@ def kml_extract_altitude_section(kml_path):
 					for coord_str in coordinates_str.split():
 						lon, lat, alt = map(float, coord_str.split(','))
 						data.append({'Longitude': lon, 'Latitude': lat, 'Altitude': alt})
-					return pd.DataFrame(data), link, extracted_number
+					return pd.DataFrame(data), link, flight_name
 
 		return None, None, None
 	except Exception as e:
@@ -79,7 +90,8 @@ def kml_extract_launch_phase(kml_path, min_altitude=710, max_altitude=1500, min_
 	rolling_mean_window = 10
 
 	try:
-		coordinates_df, link, extracted_number = kml_extract_altitude_section(kml_path)
+		print (f"[[{kml_path}]]")
+		coordinates_df, link, flight_name = kml_extract_altitude_section(kml_path)
 
 		# remove coordinates with altitude < 720 and altitude > 1000
 		coordinates_df = coordinates_df[coordinates_df['Altitude'] >= min_altitude]
@@ -109,7 +121,7 @@ def kml_extract_launch_phase(kml_path, min_altitude=710, max_altitude=1500, min_
 				print(coordinates_df.head(20))
 				print(coordinates_df.tail(20))
 
-			return coordinates_df, link, extracted_number
+			return coordinates_df, link, flight_name
 
 		else:
 			return None, None, None
@@ -118,3 +130,13 @@ def kml_extract_launch_phase(kml_path, min_altitude=710, max_altitude=1500, min_
 		print(f"Error processing KML file: {e}")
 		return None, None, None
 
+
+"""
+testfile = "tracks/kml/Boesingen-14-07-19-2-kurz.kml"
+testfile = "tracks/kml/2022_1583097.kml"
+track, flight_url, flight_number = kml_extract_altitude_section(testfile)
+print(track)
+print(flight_url)
+print(flight_number)
+
+"""
