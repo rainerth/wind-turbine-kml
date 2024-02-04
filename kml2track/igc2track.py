@@ -291,6 +291,7 @@ def igc_extract_launch_phase(igc_path, min_altitude=710, max_altitude=1500, min_
 	rolling_mean_window = 10
 
 	try:
+		print (f"[[{igc_path}]]")
 		coordinates_df, link, flight_name = igc_extract_altitude_section(igc_path)
 
 		# keep only columns with altitude, latitude and longitude
@@ -301,7 +302,7 @@ def igc_extract_launch_phase(igc_path, min_altitude=710, max_altitude=1500, min_
 		coordinates_df['Latitude'] = pd.to_numeric(coordinates_df['Latitude'])
 		coordinates_df['Longitude'] = pd.to_numeric(coordinates_df['Longitude'])
 		coordinates_df['Altitude'] = pd.to_numeric(coordinates_df['Altitude'])
-		
+
 
 		# remove coordinates with altitude < 720 and altitude > 1000
 		coordinates_df = coordinates_df[coordinates_df['Altitude'] >= min_altitude]
