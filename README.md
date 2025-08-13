@@ -2,3 +2,10 @@
 Create a wind turbine model for use in Google Earth
 
 Using this model for a project near Boesingen / Germany
+
+
+
+# Python Umgebung
+
+~/conda/envs/py311
+
