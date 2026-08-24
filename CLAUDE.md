@@ -106,6 +106,14 @@ Web nicht laden — Pro verzeiht Spezifikationsverstöße stillschweigend.
    `create_kml_turbine_simple()` aus KML-Primitiven.
 4. **Linien brauchen zwei verschiedene Punkte.** Entartete LineStrings setzt Web auf
    Position 0,0. `add_flight_tracks()` sortiert solche Tracks aus.
+5. **Linienbreiten sind Pixel und skalieren nicht mit der Entfernung.** Bei einem
+   extrudierten Zylinder zeichnet Google Earth den Umriss *jeder* Seitenfläche — ein
+   24-Segment-Turm behält aus jeder Distanz 24 nebeneinanderliegende 1-px-Linien und
+   wirkt aus der Ferne wie ein massiver Balken, während die Füllfläche korrekt auf
+   wenige Pixel schrumpft. Für schlanke Objekte, die aus der Ferne sichtbar sind,
+   deshalb `polystyle.outline = 0` und `linestyle.width = 0` setzen; nur die Füllung
+   skaliert perspektivisch richtig. Wo eine Linie das einzige Darstellungsmittel ist
+   (Rotorblätter), Breite auf 1 halten.
 
 Gegenprobe nach jedem Lauf — beide Zeilen müssen `0` unauflösbare Referenzen zeigen:
 
