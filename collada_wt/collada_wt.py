@@ -506,7 +506,17 @@ def create_turbine(tower_height = 95,
 
     mesh = collada.Collada()
 
-    effect = collada.material.Effect("effect0", [], "phong", diffuse=(1,1,1), specular=(0,1,0))
+    # ambient ist in pycollada per Default (0,0,0) - vom Licht abgewandte Flächen
+    # werden dadurch in Google Earth komplett schwarz, was Rotorblätter und Turm
+    # wie Scherenschnitte aussehen ließ. Ein Umgebungsanteil hebt die Schattenseite
+    # auf ein realistisches Grau. specular stand außerdem auf (0,1,0), also grün.
+    # double_sided, damit die dünnen Blattflächen auch von hinten stehen bleiben.
+    effect = collada.material.Effect("effect0", [], "phong",
+                                     diffuse=(0.90, 0.90, 0.92),
+                                     ambient=(0.62, 0.62, 0.65),
+                                     specular=(0.06, 0.06, 0.06),
+                                     shininess=6.0,
+                                     double_sided=True)
     mat = collada.material.Material("material0", "mymaterial", effect)
     mesh.effects.append(effect)
     mesh.materials.append(mat)
@@ -514,7 +524,12 @@ def create_turbine(tower_height = 95,
     # Zweites Material für die Blattspitzen. Beide Dreiecksmengen teilen sich
     # dieselbe Vertex- und Normalenquelle, unterscheiden sich also nur im
     # Material - deshalb zwei TriangleSets statt zweier Geometrien.
-    tip_effect = collada.material.Effect("effect1", [], "phong", diffuse=tip_color, specular=(0,0,0))
+    tip_effect = collada.material.Effect("effect1", [], "phong",
+                                         diffuse=tip_color,
+                                         ambient=tuple(0.6 * channel for channel in tip_color),
+                                         specular=(0.05, 0.05, 0.05),
+                                         shininess=6.0,
+                                         double_sided=True)
     tip_mat = collada.material.Material("material1", "tipmaterial", tip_effect)
     mesh.effects.append(tip_effect)
     mesh.materials.append(tip_mat)
@@ -577,7 +592,12 @@ def create_zone(zone_height = 95,zone_diameter = 4):
 
     mesh = collada.Collada()
 
-    effect = collada.material.Effect("effect0", [], "phong", diffuse=(1,1,1), specular=(0,1,0))
+    effect = collada.material.Effect("effect0", [], "phong",
+                                     diffuse=(0.90, 0.90, 0.92),
+                                     ambient=(0.62, 0.62, 0.65),
+                                     specular=(0.06, 0.06, 0.06),
+                                     shininess=6.0,
+                                     double_sided=True)
     mat = collada.material.Material("material0", "mymaterial", effect)
     mesh.effects.append(effect)
     mesh.materials.append(mat)
