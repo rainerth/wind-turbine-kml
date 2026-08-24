@@ -51,7 +51,20 @@ WEA01,vestas-v172.dae,48.237694,8.524661,199,172,1
 ```
 - `height`: Hub height in meters
 - `diameter`: Rotor diameter in meters
-- `Model`: Reference to 3D model file in `models/`
+- `Model`: Anlagen**typ**, nicht der Dateiname. Der konkrete Dateiname entsteht in
+  Zelle 2 aus Typ + Maßen (`vestas-v172-h175-d172.dae`)
+
+**Google Earth skaliert COLLADA-Modelle nicht.** `<Model>` wird mit `Scale 1,1,1`
+platziert; `height` und `diameter` aus der CSV wirken sich nicht auf das Modell aus.
+Deshalb erzeugt Zelle 2 **ein Modell je vorkommender Größe** statt eines je Anlagentyp
+(derzeit 9 Modelle für 4 Typen). Turmdurchmesser skalieren mit der Höhe, Gondel- und
+Blattmaße mit dem Rotordurchmesser; die rote Blattspitze bleibt bei absoluten 6 m.
+
+Wer eine neue Anlagengröße in eine CSV einträgt, muss nichts weiter tun — das Modell
+entsteht beim nächsten Lauf automatisch, verwaiste werden entfernt. Ausnahme ist der
+Cesium-**ion**-Viewer: dessen `CESIUM_ASSET_IDS` in Zelle 16 sind manuell gepflegte
+Upload-IDs der Basismodelle. Zelle 16 warnt, solange dort weniger IDs stehen als
+Modelle existieren; KML, KMZ und die lokale CZML sind davon nicht betroffen.
 
 ### Turbine Types Modeled
 - Vestas V172: 199m height, 172m diameter
