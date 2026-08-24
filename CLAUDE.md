@@ -66,6 +66,29 @@ Cesium-**ion**-Viewer: dessen `CESIUM_ASSET_IDS` in Zelle 16 sind manuell gepfle
 Upload-IDs der Basismodelle. Zelle 16 warnt, solange dort weniger IDs stehen als
 Modelle existieren; KML, KMZ und die lokale CZML sind davon nicht betroffen.
 
+### Gemarkungsgrenzen (areas/gemarkungen.geojson)
+
+Katasterbezirke der Ebene "Gemarkung" aus dem INSPIRE-WFS **Flurstücke/Grundstücke
+ALKIS** des Landesamts für Geoinformation und Landentwicklung Baden-Württemberg
+(FeatureType `cp:CadastralZoning`), Open Data unter Datenlizenz Deutschland
+Namensnennung 2.0.
+
+Die Datei liegt im Repo, damit ein Notebook-Lauf ohne Netz reproduzierbar ist.
+Neu holen — nur nötig, wenn sich der Abfragebereich ändert:
+
+```bash
+python sources/gemarkungen_abrufen.py
+```
+
+Das Skript fragt den WFS mit einer BBOX ab, dünnt die Stützpunkte auf 5 m aus
+(Flächenabweichung unter 0,01 %) und schreibt WGS84-GeoJSON. Der Abfragebereich ist
+bewusst größer als `CONFIG['area_*']`: WEA-Wi1 liegt bei 48,334 und damit nördlich
+davon. Die Notebook-Zelle warnt, wenn eine Anlage in keiner geladenen Gemarkung liegt.
+
+Welche Gemarkungen hervorgehoben werden, wird **nicht** fest eingetragen, sondern per
+räumlichem Join aus `locations/*.csv` bestimmt — die Zuordnung bleibt damit richtig,
+wenn Standorte dazukommen.
+
 ### Turbine Types Modeled
 - Vestas V172: 199m height, 172m diameter
 - Enercon E66: 95m height, 66m diameter
