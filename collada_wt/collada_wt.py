@@ -193,34 +193,146 @@ def create_aerofoil(chord=10,thickness=2,vertices_top=15):
 
     return x,y
 
-def create_blade(length=150,rotation=0,chord=10,thickness=2,tip_size=0.5,twist=5,root_length=10):
+def create_lofted_body(cross_sections):
+    """Verbindet mehrere Querschnitte zu einem geschlossenen Körper.
 
+    Anders als create_beam(), das genau zwei Querschnitte verbindet und an
+    beiden Enden eine Kappe setzt, kann diese Funktion beliebig viele Stationen
+    aneinanderreihen. Nur der erste und der letzte Querschnitt bekommen eine
+    Kappe, dazwischen entsteht durchgehende Mantelfläche - für ein Rotorblatt,
+    dessen Tiefe sich über mehrere Stationen ändert.
+
+    Args:
+        cross_sections: Liste von (M,3)-Arrays mit je M Punkten in gleicher
+            Reihenfolge und gleicher Anzahl.
+
+    Returns:
+        (vert_floats, indices) im Format von create_beam().
+    """
     import numpy as np
 
-    # create bottom cross-section
-    x,y = create_aerofoil(chord=chord,thickness=thickness)
-    z = 0*np.zeros(x.size)
-    vert_floats_bot = np.array([x,y,z]).T
-    vert_floats_bot = vert_floats_bot.dot(rotation_matrix(x_degrees=0,y_degrees=0,z_degrees=twist))
+    sections = [np.asarray(cs) for cs in cross_sections]
+    points = sections[0].shape[0]
+    if any(cs.shape[0] != points for cs in sections):
+        raise ValueError('alle Querschnitte brauchen gleich viele Punkte')
+
+    vert_floats = np.vstack(sections)
+
+    triangles = []
+
+    # Mantel: je zwei benachbarte Stationen ergeben einen Ring aus Vierecken.
+    for station in range(len(sections) - 1):
+        lower = station * points
+        upper = (station + 1) * points
+        for side in range(points):
+            next_side = (side + 1) % points
+            triangles.append((lower + side, lower + next_side, upper + side))
+            triangles.append((lower + next_side, upper + next_side, upper + side))
+
+    # Kappen an den beiden Enden, als Fächer um den jeweils ersten Punkt.
+    last = (len(sections) - 1) * points
+    for side in range(1, points - 1):
+        triangles.append((0, side + 1, side))
+        triangles.append((last, last + side, last + side + 1))
+
+    # Normalen werden später je Dreieck berechnet, ihr Index ist deshalb
+    # fortlaufend: Dreieck k belegt 3k, 3k+1, 3k+2.
+    indices = np.array([[a, 3 * k, b, 3 * k + 1, c, 3 * k + 2]
+                        for k, (a, b, c) in enumerate(triangles)], dtype=int)
+
+    return vert_floats, indices
 
 
-    # create top cross-section
-    x,y = create_aerofoil(chord=chord,thickness=thickness)
-    x = x * tip_size
-    y = y * tip_size
-    z = length*np.ones(x.size)
-    vert_floats_top = np.array([x,y,z]).T
+# Tiefenverlauf eines modernen Rotorblatts, normiert auf die größte Blatttiefe.
+# Stationen als (Anteil der Blattlänge, Anteil der maximalen Tiefe). Die größte
+# Tiefe liegt bei rund 20 % der Länge, danach verjüngt sich das Blatt stetig bis
+# auf wenige Zentimeter an der Spitze. Der frühere Verlauf war eine Gerade von
+# der Wurzel bis zur halben Tiefe an der Spitze - dadurch wirkten die Blätter
+# über die ganze Länge wie Balken.
+BLADE_PLANFORM = (
+    (0.00, 0.55),
+    (0.08, 0.85),
+    (0.20, 1.00),
+    (0.35, 0.82),
+    (0.50, 0.66),
+    (0.65, 0.52),
+    (0.80, 0.37),
+    (0.90, 0.26),
+    (0.96, 0.17),
+    (1.00, 0.06),
+)
 
 
-    vert_floats,indices = create_beam(vert_floats_bot,vert_floats_top)
+def blade_sections(length, chord, thickness, twist, planform=BLADE_PLANFORM,
+                   station_range=(0.0, 1.0), extra_stations=()):
+    """Querschnitte eines Blattabschnitts entlang der Blattlänge.
 
-    vert_floats = vert_floats.dot(rotation_matrix(x_degrees=0,y_degrees=0,z_degrees=90))
+    Die Verwindung läuft von twist an der Wurzel linear auf 0 an der Spitze -
+    so herum wie beim echten Blatt, dessen Profil außen fast in der Rotorebene
+    liegt.
 
-    vert_floats[:,2] = vert_floats[:,2]+root_length
+    Args:
+        station_range: Anteil der Blattlänge, der erzeugt werden soll.
+        extra_stations: zusätzliche Stationen (Anteile), damit ein Abschnitt
+            exakt an einer gewünschten Trennstelle beginnt oder endet.
+    """
+    import numpy as np
 
-    vert_floats = vert_floats.dot(rotation_matrix(x_degrees=rotation,y_degrees=0,z_degrees=0))
+    fractions = sorted({f for f, _ in planform} | set(extra_stations) | set(station_range))
+    fractions = [f for f in fractions if station_range[0] - 1e-9 <= f <= station_range[1] + 1e-9]
 
-    return vert_floats,indices
+    planform_x = [f for f, _ in planform]
+    planform_y = [c for _, c in planform]
+
+    sections = []
+    for fraction in fractions:
+        local_chord = chord * float(np.interp(fraction, planform_x, planform_y))
+        local_twist = twist * (1 - fraction)
+
+        x, y = create_aerofoil(chord=local_chord,
+                               thickness=thickness * local_chord / chord)
+        z = fraction * length * np.ones(x.size)
+
+        section = np.array([x, y, z]).T
+        section = section.dot(rotation_matrix(x_degrees=0, y_degrees=0,
+                                              z_degrees=local_twist))
+        sections.append(section)
+
+    return sections
+
+
+def create_blade(length=150, rotation=0, chord=10, thickness=2, tip_size=0.5,
+                 twist=5, root_length=10, tip_paint_length=6.0):
+    """Rotorblatt aus zwei Körpern: Hauptteil und farbig markierte Spitze.
+
+    tip_size wird nicht mehr ausgewertet - der Tiefenverlauf kommt aus
+    BLADE_PLANFORM. Das Argument bleibt für Aufrufer erhalten.
+
+    tip_paint_length ist die Länge der Blattspitze in Metern, die als eigener
+    Körper entsteht, damit sie ein eigenes Material bekommen kann (rote
+    Tageskennzeichnung nach AVV Kennzeichnung von Luftfahrthindernissen).
+
+    Returns:
+        (main_verts, main_indices, tip_verts, tip_indices)
+    """
+    import numpy as np
+
+    split = max(0.0, min(1.0, 1 - tip_paint_length / length)) if length > 0 else 1.0
+
+    def build(station_range):
+        sections = blade_sections(length, chord, thickness, twist,
+                                  station_range=station_range,
+                                  extra_stations=(split,))
+        verts, indices = create_lofted_body(sections)
+        verts = verts.dot(rotation_matrix(x_degrees=0, y_degrees=0, z_degrees=90))
+        verts[:, 2] = verts[:, 2] + root_length
+        verts = verts.dot(rotation_matrix(x_degrees=rotation, y_degrees=0, z_degrees=0))
+        return verts, indices
+
+    main_verts, main_indices = build((0.0, split))
+    tip_verts, tip_indices = build((split, 1.0))
+
+    return main_verts, main_indices, tip_verts, tip_indices
 
 def create_blade_root(radius=5,length=10,rotation=0):
 
@@ -248,7 +360,7 @@ def create_hub(radius=5,length=1):
 
     return vert_floats,indices
 
-def create_rotor(diameter=100,hub_height=100,overhang=20,chord=10,thickness=5,tip_size=0.2,twist=10,root_length=10,root_diameter=4):
+def create_rotor(diameter=100,hub_height=100,overhang=20,chord=10,thickness=5,tip_size=0.2,twist=10,root_length=10,root_diameter=4,tip_paint_length=6.0):
 
 
     blade_length=diameter/2-root_length
@@ -266,21 +378,37 @@ def create_rotor(diameter=100,hub_height=100,overhang=20,chord=10,thickness=5,ti
     vert_floats,indices = combine_verts([vert_floats,root1_vert_floats,root2_vert_floats,root3_vert_floats],
                                         [indices,root1_indices,root2_indices,root3_indices])
 
-    blade1_vert_floats,blade1_indices = create_blade(length=blade_length,rotation=0,chord=chord,thickness=thickness,tip_size=tip_size,twist=twist,root_length=root_length)
-    blade2_vert_floats,blade2_indices = create_blade(length=blade_length,rotation=120,chord=chord,thickness=thickness,tip_size=tip_size,twist=twist,root_length=root_length)
-    blade3_vert_floats,blade3_indices = create_blade(length=blade_length,rotation=240,chord=chord,thickness=thickness,tip_size=tip_size,twist=twist,root_length=root_length)
+    blade_verts = []
+    blade_indices = []
+    tip_verts = []
+    tip_indices = []
 
-    vert_floats,indices = combine_verts([vert_floats,blade1_vert_floats,blade2_vert_floats,blade3_vert_floats],
-                                        [indices,blade1_indices,blade2_indices,blade3_indices])
+    for blade_rotation in (0, 120, 240):
+        main_v, main_i, tip_v, tip_i = create_blade(length=blade_length,
+                                                    rotation=blade_rotation,
+                                                    chord=chord,
+                                                    thickness=thickness,
+                                                    tip_size=tip_size,
+                                                    twist=twist,
+                                                    root_length=root_length,
+                                                    tip_paint_length=tip_paint_length)
+        blade_verts.append(main_v)
+        blade_indices.append(main_i)
+        tip_verts.append(tip_v)
+        tip_indices.append(tip_i)
 
+    vert_floats,indices = combine_verts([vert_floats]+blade_verts,
+                                        [indices]+blade_indices)
 
-    vert_floats = vert_floats.dot(rotation_matrix(x_degrees=0,y_degrees=0,z_degrees=0))
+    # Blattspitzen bleiben eine eigene Geometrie, damit sie in create_turbine()
+    # ein anderes Material bekommen können (rote Tageskennzeichnung).
+    tip_vert_floats,tip_index_array = combine_verts(tip_verts,tip_indices)
 
-    vert_floats[:,0] = vert_floats[:,0]+overhang
-    vert_floats[:,2] = vert_floats[:,2]+hub_height
+    for arr in (vert_floats, tip_vert_floats):
+        arr[:,0] = arr[:,0]+overhang
+        arr[:,2] = arr[:,2]+hub_height
 
-
-    return vert_floats,indices
+    return vert_floats,indices,tip_vert_floats,tip_index_array
 
 def create_nacelle(nacelle_height=3,nacelle_length=20,nacelle_overhang=8,tower_height=95,sides=4):
 
@@ -306,6 +434,8 @@ def create_turbine(tower_height = 95,
                    blade_chord=4,
                    blade_tip_size=0.5,
                    blade_twist=30,
+                   blade_tip_paint_length=6.0,
+                   tip_color=(0.75,0.08,0.08),
                   ):
 
 
@@ -331,7 +461,8 @@ def create_turbine(tower_height = 95,
 
 
     # create rotor
-    rotor_vert_floats,rotor_indices = create_rotor(diameter=rotor_diameter,
+    rotor_vert_floats,rotor_indices,tip_vert_floats,tip_indices = create_rotor(
+                                                   diameter=rotor_diameter,
                                                    hub_height=hub_height,
                                                    overhang=hub_overhang,
                                                    chord=blade_chord,
@@ -339,12 +470,19 @@ def create_turbine(tower_height = 95,
                                                    tip_size=blade_tip_size,
                                                    twist=blade_twist,
                                                    root_length=blade_root_length,
-                                                   root_diameter=blade_root_diameter)
+                                                   root_diameter=blade_root_diameter,
+                                                   tip_paint_length=blade_tip_paint_length)
 
 
-    # combine objects
-    vert_floats,indices = combine_verts([tower_vert_floats,nacelle_vert_floats,rotor_vert_floats],
+    # combine objects: erst alles Weiße, dann die Blattspitzen. Die Reihenfolge
+    # trägt die Materialzuordnung - die letzten Dreiecke sind die roten.
+    body_vert_floats,body_indices = combine_verts([tower_vert_floats,nacelle_vert_floats,rotor_vert_floats],
                                            [tower_indices,nacelle_indices,rotor_indices])
+
+    body_triangles = body_indices.shape[0]
+
+    vert_floats,indices = combine_verts([body_vert_floats,tip_vert_floats],
+                                        [body_indices,tip_indices])
 
     # rotate to match google earth x,y,z
     vert_floats = vert_floats.dot(rotation_matrix(x_degrees=90,y_degrees=0,z_degrees=0))
@@ -368,18 +506,31 @@ def create_turbine(tower_height = 95,
     mesh.effects.append(effect)
     mesh.materials.append(mat)
 
+    # Zweites Material für die Blattspitzen. Beide Dreiecksmengen teilen sich
+    # dieselbe Vertex- und Normalenquelle, unterscheiden sich also nur im
+    # Material - deshalb zwei TriangleSets statt zweier Geometrien.
+    tip_effect = collada.material.Effect("effect1", [], "phong", diffuse=tip_color, specular=(0,0,0))
+    tip_mat = collada.material.Material("material1", "tipmaterial", tip_effect)
+    mesh.effects.append(tip_effect)
+    mesh.materials.append(tip_mat)
+
     geom = collada.geometry.Geometry(mesh, "geometry0", "mycube", [vert_src, normal_src])
 
     input_list = collada.source.InputList()
     input_list.addInput(0, 'VERTEX', "#cubeverts-array")
     input_list.addInput(1, 'NORMAL', "#cubenormals-array")
 
-    triset = geom.createTriangleSet(indices.flatten(), input_list, "materialref")
+    triset = geom.createTriangleSet(indices[:body_triangles].flatten(), input_list, "materialref")
     geom.primitives.append(triset)
+
+    tip_triset = geom.createTriangleSet(indices[body_triangles:].flatten(), input_list, "tipref")
+    geom.primitives.append(tip_triset)
+
     mesh.geometries.append(geom)
 
     matnode = collada.scene.MaterialNode("materialref", mat, inputs=[])
-    geomnode = collada.scene.GeometryNode(geom, [matnode])
+    tip_matnode = collada.scene.MaterialNode("tipref", tip_mat, inputs=[])
+    geomnode = collada.scene.GeometryNode(geom, [matnode, tip_matnode])
     node = collada.scene.Node("node0", children=[geomnode])
 
     myscene = collada.scene.Scene("myscene", [node])
