@@ -221,19 +221,24 @@ def create_lofted_body(cross_sections):
     triangles = []
 
     # Mantel: je zwei benachbarte Stationen ergeben einen Ring aus Vierecken.
+    # Die Umlaufrichtung muss der von create_beam() entsprechen, sonst zeigen
+    # alle Normalen nach innen. Google Earth verwirft solche Flächen per
+    # Backface-Culling und vom Rotorblatt bleibt nur die Silhouette - ein
+    # Strich. Gegenprobe ist das vorzeichenbehaftete Volumen: es muss positiv
+    # sein (Divergenz-Theorem).
     for station in range(len(sections) - 1):
         lower = station * points
         upper = (station + 1) * points
         for side in range(points):
             next_side = (side + 1) % points
-            triangles.append((lower + side, lower + next_side, upper + side))
-            triangles.append((lower + next_side, upper + next_side, upper + side))
+            triangles.append((lower + side, upper + side, lower + next_side))
+            triangles.append((lower + next_side, upper + side, upper + next_side))
 
     # Kappen an den beiden Enden, als Fächer um den jeweils ersten Punkt.
     last = (len(sections) - 1) * points
     for side in range(1, points - 1):
-        triangles.append((0, side + 1, side))
-        triangles.append((last, last + side, last + side + 1))
+        triangles.append((0, side, side + 1))
+        triangles.append((last, last + side + 1, last + side))
 
     # Normalen werden später je Dreieck berechnet, ihr Index ist deshalb
     # fortlaufend: Dreieck k belegt 3k, 3k+1, 3k+2.

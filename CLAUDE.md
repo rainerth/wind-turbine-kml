@@ -89,6 +89,26 @@ grep -o "<altitudeMode>[^<]*" output/WEA-boesingen.kml | sort | uniq -c
 
 Erwartung: nur `relativeToGround` und `clampToGround`, kein `absolute`.
 
+## COLLADA-Geometrie: Umlaufrichtung prüfen
+
+Google Earth zeichnet nur Vorderseiten (Backface-Culling). Sind die Dreiecke eines
+Körpers falsch herum umlaufen, zeigen alle Normalen nach innen und der Körper
+verschwindet bis auf seine Silhouette — ein Rotorblatt wird dann zum Strich.
+
+Jede neue Geometriefunktion in `collada_wt/` deshalb gegen das vorzeichenbehaftete
+Volumen prüfen (Divergenz-Theorem). Für einen geschlossenen Körper mit
+Außennormalen ist es **positiv**:
+
+```python
+def signed_volume(verts, indices):
+    tri = verts[indices[:, [0, 2, 4]]]
+    return np.einsum('ij,ij->i', tri[:,0], np.cross(tri[:,1], tri[:,2])).sum() / 6.0
+```
+
+`create_beam()` ist die Referenz für die richtige Umlaufrichtung; `create_lofted_body()`
+folgt ihr. Ein Vergleich beider Funktionen auf demselben Zylinder muss denselben Wert
+mit demselben Vorzeichen liefern.
+
 ## Google Earth Web: Strukturregeln
 
 Google Earth **Web** ist strenger als Google Earth **Pro**. Was in Pro lädt, muss in
