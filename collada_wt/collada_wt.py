@@ -6,6 +6,14 @@ import collada
 import numpy as np
 
 
+# Länge, auf die alle Flächennormalen gebracht werden. Google Earth normiert
+# Normalen nicht selbst, sondern beleuchtet mit der übergebenen Länge - der Wert
+# wirkt deshalb wie ein Helligkeitsregler. 1,0 ergibt ein flaues Dunkelgrau,
+# die früheren ungleichmäßigen Längen (Median 2,05, Spitzen 0,07) ergaben helle
+# Flächen mit schwarzen Blattspitzen.
+NORMAL_SCALE = 2.5
+
+
 def rotation_matrix(x_degrees=0,y_degrees=0,z_degrees=0):
 
     theta_x = np.radians(x_degrees)
@@ -497,14 +505,21 @@ def create_turbine(tower_height = 95,
     normal_floats = np.cross(vert_floats[indices[:,0]]-vert_floats[indices[:,2]],
              vert_floats[indices[:,0]]-vert_floats[indices[:,4]])
 
-    # Auf Einheitslänge bringen. np.cross liefert Vektoren, deren Länge der
-    # doppelten Dreiecksfläche entspricht - beim Turm über 250, bei den winzigen
-    # Dreiecken der Blattspitze unter 0,1. Google Earth rechnet die Beleuchtung
-    # mit diesen Längen, statt sie selbst zu normieren: große Flächen
-    # übersteuern zu Weiß, kleine werden schwarz. Genau deshalb waren die
-    # Blattspitzen dunkel und der Schattenkontrast so hart.
+    # Normalen auf eine EINHEITLICHE Länge bringen, aber nicht auf 1.
+    #
+    # np.cross liefert Vektoren, deren Länge der doppelten Dreiecksfläche
+    # entspricht - beim Turm über 250, bei den winzigen Dreiecken der
+    # Blattspitze unter 0,1. Google Earth normiert sie nicht, sondern rechnet
+    # die Beleuchtung direkt damit. Deshalb waren die Blattspitzen schwarz,
+    # während der Rest hell blieb.
+    #
+    # Reines Normieren auf 1 macht die Flächen zwar einheitlich, aber insgesamt
+    # dunkelgrau - in Google Earth direkt verglichen (normalen-testreihe.kmz).
+    # Der Skalierungsfaktor hebt die Beleuchtung wieder an: Flächen zur Sonne
+    # laufen ins Weiße, abgewandte bleiben abgestuft. NORMAL_SCALE ist also ein
+    # Helligkeitsregler, kein geometrischer Wert.
     lengths = np.linalg.norm(normal_floats, axis=1, keepdims=True)
-    normal_floats = normal_floats / np.where(lengths == 0, 1, lengths)
+    normal_floats = NORMAL_SCALE * normal_floats / np.where(lengths == 0, 1, lengths)
 
     normal_floats = np.tile(normal_floats,3)
 
@@ -598,14 +613,21 @@ def create_zone(zone_height = 95,zone_diameter = 4):
     normal_floats = np.cross(vert_floats[indices[:,0]]-vert_floats[indices[:,2]],
              vert_floats[indices[:,0]]-vert_floats[indices[:,4]])
 
-    # Auf Einheitslänge bringen. np.cross liefert Vektoren, deren Länge der
-    # doppelten Dreiecksfläche entspricht - beim Turm über 250, bei den winzigen
-    # Dreiecken der Blattspitze unter 0,1. Google Earth rechnet die Beleuchtung
-    # mit diesen Längen, statt sie selbst zu normieren: große Flächen
-    # übersteuern zu Weiß, kleine werden schwarz. Genau deshalb waren die
-    # Blattspitzen dunkel und der Schattenkontrast so hart.
+    # Normalen auf eine EINHEITLICHE Länge bringen, aber nicht auf 1.
+    #
+    # np.cross liefert Vektoren, deren Länge der doppelten Dreiecksfläche
+    # entspricht - beim Turm über 250, bei den winzigen Dreiecken der
+    # Blattspitze unter 0,1. Google Earth normiert sie nicht, sondern rechnet
+    # die Beleuchtung direkt damit. Deshalb waren die Blattspitzen schwarz,
+    # während der Rest hell blieb.
+    #
+    # Reines Normieren auf 1 macht die Flächen zwar einheitlich, aber insgesamt
+    # dunkelgrau - in Google Earth direkt verglichen (normalen-testreihe.kmz).
+    # Der Skalierungsfaktor hebt die Beleuchtung wieder an: Flächen zur Sonne
+    # laufen ins Weiße, abgewandte bleiben abgestuft. NORMAL_SCALE ist also ein
+    # Helligkeitsregler, kein geometrischer Wert.
     lengths = np.linalg.norm(normal_floats, axis=1, keepdims=True)
-    normal_floats = normal_floats / np.where(lengths == 0, 1, lengths)
+    normal_floats = NORMAL_SCALE * normal_floats / np.where(lengths == 0, 1, lengths)
 
     normal_floats = np.tile(normal_floats,3)
 
