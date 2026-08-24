@@ -497,6 +497,15 @@ def create_turbine(tower_height = 95,
     normal_floats = np.cross(vert_floats[indices[:,0]]-vert_floats[indices[:,2]],
              vert_floats[indices[:,0]]-vert_floats[indices[:,4]])
 
+    # Auf Einheitslänge bringen. np.cross liefert Vektoren, deren Länge der
+    # doppelten Dreiecksfläche entspricht - beim Turm über 250, bei den winzigen
+    # Dreiecken der Blattspitze unter 0,1. Google Earth rechnet die Beleuchtung
+    # mit diesen Längen, statt sie selbst zu normieren: große Flächen
+    # übersteuern zu Weiß, kleine werden schwarz. Genau deshalb waren die
+    # Blattspitzen dunkel und der Schattenkontrast so hart.
+    lengths = np.linalg.norm(normal_floats, axis=1, keepdims=True)
+    normal_floats = normal_floats / np.where(lengths == 0, 1, lengths)
+
     normal_floats = np.tile(normal_floats,3)
 
 
@@ -588,6 +597,15 @@ def create_zone(zone_height = 95,zone_diameter = 4):
     # create normals at each vertex based on triangle normals
     normal_floats = np.cross(vert_floats[indices[:,0]]-vert_floats[indices[:,2]],
              vert_floats[indices[:,0]]-vert_floats[indices[:,4]])
+
+    # Auf Einheitslänge bringen. np.cross liefert Vektoren, deren Länge der
+    # doppelten Dreiecksfläche entspricht - beim Turm über 250, bei den winzigen
+    # Dreiecken der Blattspitze unter 0,1. Google Earth rechnet die Beleuchtung
+    # mit diesen Längen, statt sie selbst zu normieren: große Flächen
+    # übersteuern zu Weiß, kleine werden schwarz. Genau deshalb waren die
+    # Blattspitzen dunkel und der Schattenkontrast so hart.
+    lengths = np.linalg.norm(normal_floats, axis=1, keepdims=True)
+    normal_floats = normal_floats / np.where(lengths == 0, 1, lengths)
 
     normal_floats = np.tile(normal_floats,3)
 
