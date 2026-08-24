@@ -13,12 +13,16 @@ import numpy as np
 # Flächen mit schwarzen Blattspitzen.
 NORMAL_SCALE = 2.5
 
-# Eigene Länge für die Blattspitzen. Google Earth clampt die Beleuchtung: bei
-# langen Normalen läuft jede besonnte Fläche ins Weiße und die Materialfarbe
-# verschwindet mit. Kurze Normalen beleuchten schwächer, dafür bleibt die Farbe
-# erkennbar. Helligkeit und Farbtreue hängen am selben Regler - deshalb
-# bekommen die farbigen Spitzen einen eigenen.
-TIP_NORMAL_SCALE = 1.0
+# Eigene Länge für die Blattspitzen. Steht auf demselben Wert wie der Rest, die
+# Spitzen sehen also aus wie das übrige Blatt.
+#
+# Der Regler stammt aus dem Versuch, die Spitzen rot zu bekommen: eine
+# schwächere Beleuchtung sollte verhindern, dass die Materialfarbe ins Weiße
+# geclampt wird. Getestet wurden in Google Earth Pro die Längen 2,5 / 1,5 / 1,0
+# / 0,6 / 0,3 - keine zeigte Rot, die Spitzen wurden nur dunkler. Farbe ist an
+# diesen COLLADA-Modellen nicht erreichbar (siehe CLAUDE.md). Ein kleinerer Wert
+# macht die Spitzen also nur dunkel, nicht farbig.
+TIP_NORMAL_SCALE = NORMAL_SCALE
 
 
 def rotation_matrix(x_degrees=0,y_degrees=0,z_degrees=0):

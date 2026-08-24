@@ -102,6 +102,43 @@ grep -o "<altitudeMode>[^<]*" output/WEA-boesingen.kml | sort | uniq -c
 
 Erwartung: nur `relativeToGround` und `clampToGround`, kein `absolute`.
 
+## COLLADA-Modelle sind in Google Earth grau — Farbe ist nicht erreichbar
+
+**Nicht erneut versuchen.** Über mehrere Testreihen in Google Earth Pro wurde geprüft,
+ob COLLADA-Modelle farbig darstellbar sind. Ergebnis: nein. Getestet und je einzeln
+verworfen wurden
+
+- Materialfarbe `diffuse` in vier Abstufungen bis zu vollem `(1, 0, 0)`,
+- eine Bildtextur (PNG) statt der Materialfarbe, mit TEXCOORD-Quelle und Sampler,
+- fünf verschiedene Normalenlängen für die farbigen Flächen (2,5 bis 0,3), um die
+  Beleuchtung so weit abzusenken, dass die Farbe nicht ins Weiße geclampt wird.
+
+Google Earth zeigt die Modelle in allen Fällen schwarz-weiß. Die Blattspitzen bleiben
+deshalb weiß; die Aufteilung der Geometrie in zwei Körper mit eigenen Materialien ist
+erhalten, kostet nichts und wäre die Ansatzstelle, falls sich das je ändert.
+
+**Wo Farbe funktioniert:** in regulärer KML-Geometrie. Polygone und Linien mit
+`PolyStyle`/`LineStyle` werden farbig dargestellt — die Windvorranggebiete, die gelben
+Anflugkorridore, die rote Platzrunde und die roten Blattspitzen der vereinfachten
+Darstellung in `WEA-boesingen-web.kmz` belegen das. Wer farbige Kennzeichnungen an den
+3D-Modellen braucht, muss sie als KML-Geometrie darüberlegen, nicht ins Modell bauen.
+
+## Normalenlänge steuert die Helligkeit
+
+Google Earth normiert Flächennormalen nicht, sondern beleuchtet mit der übergebenen
+Länge. `np.cross()` liefert Vektoren in Länge der doppelten Dreiecksfläche — im Turm
+über 250, in den Dreiecken der Blattspitze unter 0,1. Daher waren die Spitzen schwarz,
+während der Rest hell blieb.
+
+`NORMAL_SCALE` in `collada_wt.py` bringt alle Normalen auf dieselbe Länge und wirkt
+damit als Helligkeitsregler. Direkt verglichen: 1,0 ergibt ein flaues Dunkelgrau, ab
+2,0 ist die Beleuchtung gesättigt und die Werte 2 bis 8 sehen gleich aus. Eingestellt
+ist 2,5.
+
+Die Sättigung ist auch der Grund für den harten Schwarz-Weiß-Kontrast: besonnte Flächen
+laufen ins Weiße, abgewandte auf Null. Ein weicherer Verlauf ließe sich nur mit einem
+Wert um 1 erreichen, der das ganze Modell grau macht — beides zusammen geht nicht.
+
 ## COLLADA-Material: was Google Earth tatsächlich auswertet
 
 Empirisch ermittelt über Testreihen mit mehreren identischen Anlagen nebeneinander,
