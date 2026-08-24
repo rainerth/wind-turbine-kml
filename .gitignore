@@ -30,3 +30,4 @@ output/*
 
 *~
 collada_wt.zip
+models/*.glb

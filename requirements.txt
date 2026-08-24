@@ -1,4 +1,24 @@
-pycollada
-simplekml
+# Core dependencies
 numpy
+pandas
+
+# KML handling
+simplekml
+
+# 3D model handling
+pycollada
+trimesh
+
+# Geo spatial handling
+geopandas
+shapely
+fiona
+
+# Jupyter kernel
 ipykernel
+
+# Environment variables
+python-dotenv
+
+# Optional: for arrow/parquet support
+pyarrow
