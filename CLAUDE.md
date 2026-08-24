@@ -134,6 +134,7 @@ EOF
 | Datei | Viewer | Inhalt |
 |---|---|---|
 | `output/WEA-boesingen.kmz` | Google Earth **Pro Desktop** | COLLADA-3D-Modelle, alles |
+| `output/WEA-boesingen.kml` | dieselbe, unverpackt | braucht `output/models/*.dae` daneben — Zelle 12 spiegelt sie dorthin |
 | `output/WEA-boesingen-web.kmz` | Google Earth **Web**, iPad, sonstige Viewer | vereinfachte WEA aus KML-Primitiven, sonst identisch (Flugplatz, Flugrouten, Tracks) |
 
 ## Key Configuration (in notebook)
@@ -145,5 +146,12 @@ safety_distance_top = 100       # Distance above turbine tip
 ```
 
 ## Output Viewing
+
+**Im Zweifel die `.kmz` öffnen, nicht die `.kml`.** Die KML verweist relativ auf
+`models/*.dae`; Google Earth löst das gegen das Verzeichnis der KML auf, sucht also in
+`output/models/`. Fehlt der Ordner, kommt „Datei konnte nicht gelesen werden" mit dem
+Pfad des Modells. Zelle 12 spiegelt die Modelle deshalb nach `output/models/`. In der
+KMZ tritt das Problem nicht auf, dort liegt `doc.kml` in der Archivwurzel.
+
 
 Generated KMZ files require **Google Earth Pro Desktop** for 3D model rendering. Web/mobile versions don't display COLLADA models.
