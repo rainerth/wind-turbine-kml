@@ -13,6 +13,13 @@ import numpy as np
 # Flächen mit schwarzen Blattspitzen.
 NORMAL_SCALE = 2.5
 
+# Eigene Länge für die Blattspitzen. Google Earth clampt die Beleuchtung: bei
+# langen Normalen läuft jede besonnte Fläche ins Weiße und die Materialfarbe
+# verschwindet mit. Kurze Normalen beleuchten schwächer, dafür bleibt die Farbe
+# erkennbar. Helligkeit und Farbtreue hängen am selben Regler - deshalb
+# bekommen die farbigen Spitzen einen eigenen.
+TIP_NORMAL_SCALE = 1.0
+
 
 def rotation_matrix(x_degrees=0,y_degrees=0,z_degrees=0):
 
@@ -449,6 +456,7 @@ def create_turbine(tower_height = 95,
                    blade_twist=30,
                    blade_tip_paint_length=6.0,
                    tip_color=(1, 1, 1),
+                   tip_normal_scale=None,
                   ):
 
 
@@ -520,6 +528,12 @@ def create_turbine(tower_height = 95,
     # Helligkeitsregler, kein geometrischer Wert.
     lengths = np.linalg.norm(normal_floats, axis=1, keepdims=True)
     normal_floats = NORMAL_SCALE * normal_floats / np.where(lengths == 0, 1, lengths)
+
+    # Blattspitzen schwächer beleuchten, damit ihre Farbe nicht ins Weiße
+    # geclampt wird. body_triangles trennt weiße von farbiger Geometrie.
+    tip_scale = TIP_NORMAL_SCALE if tip_normal_scale is None else tip_normal_scale
+    if tip_scale != NORMAL_SCALE:
+        normal_floats[body_triangles:] *= tip_scale / NORMAL_SCALE
 
     normal_floats = np.tile(normal_floats,3)
 
