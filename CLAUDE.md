@@ -23,7 +23,7 @@ The main workflow is in the Jupyter notebook:
 jupyter notebook wea-boesingen.ipynb
 ```
 
-Execute cells sequentially - the notebook generates 3D models, processes location data, and outputs `output/WEA-boesingen.kmz`.
+Execute cells sequentially - the notebook generates 3D models, processes location data, and outputs `output/WEA-boesingen.kmz` (Pro, mit COLLADA) und `output/WEA-boesingen-web.kmz`.
 
 ## Architecture
 
@@ -58,6 +58,36 @@ WEA01,vestas-v172.dae,48.237694,8.524661,199,172,1
 - Enercon E66: 95m height, 66m diameter
 - Enercon E160: 166m height, 160m diameter
 - Testturm: 246m height
+
+## Höhenregel für Google Earth (verbindlich)
+
+Google Earths Geländemodell stimmt **nicht** mit echtem MSL überein. Absolute Höhen
+treffen deshalb auf ein Gelände, das anders liegt als angenommen — die Geometrie
+schwebt sichtbar über dem Boden, auch wenn der MSL-Wert der Quelle korrekt ist.
+Dieselbe Erkenntnis steht in `~/prj/thermikdash/tools/incident_kml.py`
+("GE-Terrain != echtes MSL sonst") und im Vorfall-KMZ 2026-08-08, das durchgängig
+`relativeToGround` verwendet.
+
+1. **Alles mit `relativeToGround` zeichnen**, Höhen in Metern über Grund.
+   `absolute` nur mit belegtem Grund — in diesem Projekt derzeit nirgends.
+2. **Bodenreferenz aus den Daten nehmen, nicht als Konstante annehmen.**
+   Startpunkt am Boden = erster Fix der Trackdatei, erster Punkt der Platzrunden-CSV.
+   Jeder Logger hat einen eigenen Offset (GPS-Ellipsoid vs. Geoid, Baro-Kalibrierung);
+   für denselben Startplatz Bösingen wurden 692–697 m gemessen.
+3. **Echte Bodenflächen** (Landebahn, Schutzzonen, Vorranggebiete) mit
+   `clampToGround` und **immer** `tessellate=1`.
+4. **Lange Kanten unterteilen.** Bei `relativeToGround` folgt die Geometrie dem
+   Gelände nur an den Stützpunkten; dazwischen liegen Geraden. Vor dem Zeichnen
+   durch `densify_path()` bzw. `terrain_grid_cells()` schicken, sonst überspannt
+   eine Kante die nächste Senke.
+
+Gegenprobe nach jedem Lauf:
+
+```bash
+grep -o "<altitudeMode>[^<]*" output/WEA-boesingen.kml | sort | uniq -c
+```
+
+Erwartung: nur `relativeToGround` und `clampToGround`, kein `absolute`.
 
 ## Key Configuration (in notebook)
 
