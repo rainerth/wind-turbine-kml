@@ -440,7 +440,7 @@ def create_turbine(tower_height = 95,
                    blade_tip_size=0.5,
                    blade_twist=30,
                    blade_tip_paint_length=6.0,
-                   tip_color=(0.75,0.08,0.08),
+                   tip_color=(1, 1, 1),
                   ):
 
 
@@ -526,6 +526,13 @@ def create_turbine(tower_height = 95,
     # Zweites Material für die Blattspitzen. Beide Dreiecksmengen teilen sich
     # dieselbe Vertex- und Normalenquelle, unterscheiden sich also nur im
     # Material - deshalb zwei TriangleSets statt zweier Geometrien.
+    #
+    # tip_color steht auf (1,1,1), die Spitzen sind also weiß wie der Rest.
+    # Ein abgesenkter Wert wie (0.75, 0.08, 0.08) kam in Google Earth nicht als
+    # Rot an, sondern als Grau - dasselbe Muster wie beim Hauptmaterial, wo
+    # jeder Wert unter 1 das Modell schwarz werden ließ. Die Aufteilung der
+    # Geometrie bleibt erhalten: sobald ein Farbwert gefunden ist, der in
+    # Google Earth durchkommt, genügt es, tip_color zu setzen.
     tip_effect = collada.material.Effect("effect1", [], "phong",
                                          diffuse=tip_color,
                                          specular=(0, 0, 0))
