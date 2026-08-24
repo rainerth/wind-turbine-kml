@@ -510,13 +510,16 @@ def create_turbine(tower_height = 95,
     # werden dadurch in Google Earth komplett schwarz, was Rotorblätter und Turm
     # wie Scherenschnitte aussehen ließ. Ein Umgebungsanteil hebt die Schattenseite
     # auf ein realistisches Grau. specular stand außerdem auf (0,1,0), also grün.
-    # double_sided, damit die dünnen Blattflächen auch von hinten stehen bleiben.
+    # double_sided bewusst NICHT gesetzt: es schaltet Google Earths Rendering um,
+    # sodass auch die unbeleuchteten Rückseiten gezeichnet werden. Bei den sehr
+    # dünnen Blattprofilen kann die dunkle Rückseite dabei die Vorderseite
+    # überdecken. Die Umlaufrichtung stimmt (siehe signed_volume in CLAUDE.md),
+    # doppelseitiges Rendern ist also gar nicht nötig.
     effect = collada.material.Effect("effect0", [], "phong",
                                      diffuse=(0.90, 0.90, 0.92),
                                      ambient=(0.62, 0.62, 0.65),
                                      specular=(0.06, 0.06, 0.06),
-                                     shininess=6.0,
-                                     double_sided=True)
+                                     shininess=6.0)
     mat = collada.material.Material("material0", "mymaterial", effect)
     mesh.effects.append(effect)
     mesh.materials.append(mat)
@@ -528,8 +531,7 @@ def create_turbine(tower_height = 95,
                                          diffuse=tip_color,
                                          ambient=tuple(0.6 * channel for channel in tip_color),
                                          specular=(0.05, 0.05, 0.05),
-                                         shininess=6.0,
-                                         double_sided=True)
+                                         shininess=6.0)
     tip_mat = collada.material.Material("material1", "tipmaterial", tip_effect)
     mesh.effects.append(tip_effect)
     mesh.materials.append(tip_mat)
@@ -596,8 +598,7 @@ def create_zone(zone_height = 95,zone_diameter = 4):
                                      diffuse=(0.90, 0.90, 0.92),
                                      ambient=(0.62, 0.62, 0.65),
                                      specular=(0.06, 0.06, 0.06),
-                                     shininess=6.0,
-                                     double_sided=True)
+                                     shininess=6.0)
     mat = collada.material.Material("material0", "mymaterial", effect)
     mesh.effects.append(effect)
     mesh.materials.append(mat)
