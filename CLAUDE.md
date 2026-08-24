@@ -89,6 +89,45 @@ grep -o "<altitudeMode>[^<]*" output/WEA-boesingen.kml | sort | uniq -c
 
 Erwartung: nur `relativeToGround` und `clampToGround`, kein `absolute`.
 
+## Google Earth Web: Strukturregeln
+
+Google Earth **Web** ist strenger als Google Earth **Pro**. Was in Pro lädt, muss in
+Web nicht laden — Pro verzeiht Spezifikationsverstöße stillschweigend.
+
+1. **Wurzel muss `simplekml.Document` sein, nie `Folder`.** Shared Styles (`<Style id>`,
+   referenziert per `<styleUrl>`) sind laut KML-Spezifikation nur unter `<Document>`
+   gültig. Mit `Folder` als Wurzel meldet Web für *jedes* Element
+   „verweist auf den nicht vorhandenen Stil" und rendert alles ungestylt.
+2. **Styles müssen direkt unter `<Document>` liegen.** simplekml legt einen Style in den
+   Folder, in dem das erste nutzende Feature entstand — auch bei Document-Wurzel.
+   `save_kml()` ruft deshalb `promote_styles_to_document()` auf, das sie nach dem
+   Speichern hochzieht. Neue Ausgabedateien immer über `save_kml()` schreiben.
+3. **`<Model>` (COLLADA) kann Web nicht.** Dafür existiert die Web-Variante mit
+   `create_kml_turbine_simple()` aus KML-Primitiven.
+4. **Linien brauchen zwei verschiedene Punkte.** Entartete LineStrings setzt Web auf
+   Position 0,0. `add_flight_tracks()` sortiert solche Tracks aus.
+
+Gegenprobe nach jedem Lauf — beide Zeilen müssen `0` unauflösbare Referenzen zeigen:
+
+```bash
+python3 - <<'EOF'
+from xml.etree import ElementTree as ET
+NS='{http://www.opengis.net/kml/2.2}'
+for p in ['output/WEA-boesingen.kml','output/WEA-boesingen-web.kml']:
+    root=ET.parse(p).getroot(); doc=root.find(NS+'Document')
+    ids={s.get('id') for s in list(doc) if s.tag in (NS+'Style',NS+'StyleMap')}
+    refs={u.text.lstrip('#') for u in root.iter(NS+'styleUrl') if u.text}
+    print(p, 'unaufloesbar:', len(refs-ids))
+EOF
+```
+
+### Welche Datei wofür
+
+| Datei | Viewer | Inhalt |
+|---|---|---|
+| `output/WEA-boesingen.kmz` | Google Earth **Pro Desktop** | COLLADA-3D-Modelle, alles |
+| `output/WEA-boesingen-web.kmz` | Google Earth **Web**, iPad, sonstige Viewer | vereinfachte WEA aus KML-Primitiven, sonst identisch (Flugplatz, Flugrouten, Tracks) |
+
 ## Key Configuration (in notebook)
 
 ```python
