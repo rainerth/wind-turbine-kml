@@ -1,1 +1,9 @@
-*.ipynb merge=union
+# Jupyter-Notebooks: Outputs und Ausfuehrungszaehler beim Commit strippen.
+# Verhindert Schein-Konflikte, die allein durch Notebook-Laeufe entstehen.
+*.ipynb filter=nbstripout
+*.zpln  filter=nbstripout
+
+# Strukturbewusste Diffs und Merges fuer Notebooks (nbdime).
+# ACHTUNG: niemals merge=union fuer .ipynb - zerstoert das JSON lautlos.
+*.ipynb diff=jupyternotebook
+*.ipynb merge=jupyternotebook
