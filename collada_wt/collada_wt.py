@@ -506,20 +506,19 @@ def create_turbine(tower_height = 95,
 
     mesh = collada.Collada()
 
-    # ambient ist in pycollada per Default (0,0,0) - vom Licht abgewandte Flächen
-    # werden dadurch in Google Earth komplett schwarz, was Rotorblätter und Turm
-    # wie Scherenschnitte aussehen ließ. Ein Umgebungsanteil hebt die Schattenseite
-    # auf ein realistisches Grau. specular stand außerdem auf (0,1,0), also grün.
-    # double_sided bewusst NICHT gesetzt: es schaltet Google Earths Rendering um,
-    # sodass auch die unbeleuchteten Rückseiten gezeichnet werden. Bei den sehr
-    # dünnen Blattprofilen kann die dunkle Rückseite dabei die Vorderseite
-    # überdecken. Die Umlaufrichtung stimmt (siehe signed_volume in CLAUDE.md),
-    # doppelseitiges Rendern ist also gar nicht nötig.
+    # Materialwerte empirisch in Google Earth Pro ermittelt (Testreihe mit fünf
+    # Varianten nebeneinander, siehe CLAUDE.md):
+    #   - diffuse MUSS (1,1,1) bleiben. Jeder kleinere Wert - auch 0,9 - lässt
+    #     das ganze Modell schwarz erscheinen, nicht etwa etwas dunkler.
+    #   - ambient wirkt nicht. Eine Variante mit ambient 0,6 sah exakt aus wie
+    #     eine mit ambient 0.
+    #   - specular stand früher auf (0,1,0), also grün. Neutral auf 0.
+    #   - double_sided NICHT setzen: es zeichnet auch die unbeleuchteten
+    #     Rückseiten, die bei den dünnen Blattprofilen die Vorderseite
+    #     überdecken. Die Umlaufrichtung stimmt ohnehin (signed_volume).
     effect = collada.material.Effect("effect0", [], "phong",
-                                     diffuse=(0.90, 0.90, 0.92),
-                                     ambient=(0.62, 0.62, 0.65),
-                                     specular=(0.06, 0.06, 0.06),
-                                     shininess=6.0)
+                                     diffuse=(1, 1, 1),
+                                     specular=(0, 0, 0))
     mat = collada.material.Material("material0", "mymaterial", effect)
     mesh.effects.append(effect)
     mesh.materials.append(mat)
@@ -529,9 +528,7 @@ def create_turbine(tower_height = 95,
     # Material - deshalb zwei TriangleSets statt zweier Geometrien.
     tip_effect = collada.material.Effect("effect1", [], "phong",
                                          diffuse=tip_color,
-                                         ambient=tuple(0.6 * channel for channel in tip_color),
-                                         specular=(0.05, 0.05, 0.05),
-                                         shininess=6.0)
+                                         specular=(0, 0, 0))
     tip_mat = collada.material.Material("material1", "tipmaterial", tip_effect)
     mesh.effects.append(tip_effect)
     mesh.materials.append(tip_mat)
@@ -595,10 +592,8 @@ def create_zone(zone_height = 95,zone_diameter = 4):
     mesh = collada.Collada()
 
     effect = collada.material.Effect("effect0", [], "phong",
-                                     diffuse=(0.90, 0.90, 0.92),
-                                     ambient=(0.62, 0.62, 0.65),
-                                     specular=(0.06, 0.06, 0.06),
-                                     shininess=6.0)
+                                     diffuse=(1, 1, 1),
+                                     specular=(0, 0, 0))
     mat = collada.material.Material("material0", "mymaterial", effect)
     mesh.effects.append(effect)
     mesh.materials.append(mat)

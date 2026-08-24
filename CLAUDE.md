@@ -102,6 +102,26 @@ grep -o "<altitudeMode>[^<]*" output/WEA-boesingen.kml | sort | uniq -c
 
 Erwartung: nur `relativeToGround` und `clampToGround`, kein `absolute`.
 
+## COLLADA-Material: was Google Earth tatsächlich auswertet
+
+Empirisch ermittelt über Testreihen mit mehreren identischen Anlagen nebeneinander,
+jede mit einem anderen Material (`output/material-testreihe.kmz`,
+`output/schatten-testreihe.kmz`). Google Earth Pro verhält sich hier nicht wie ein
+üblicher COLLADA-Renderer:
+
+- **`diffuse` auf (1,1,1) lassen.** Mit 0,90 erschien das ganze Modell schwarz — nicht
+  etwas dunkler, sondern schwarz. Gilt für das weiße Hauptmaterial; die rote
+  Blattspitze mit (0,75, 0,08, 0,08) wird dagegen normal rot dargestellt.
+- **`ambient` wirkt nicht.** Eine Variante mit ambient 0,6 sah exakt aus wie eine mit
+  ambient 0. Umgebungslicht lässt sich darüber nicht anheben.
+- **`double_sided` nicht setzen.** Es zeichnet auch die unbeleuchteten Rückseiten, die
+  bei den dünnen Blattprofilen die Vorderseite überdecken können. Nötig ist es nicht,
+  solange die Umlaufrichtung stimmt (siehe unten).
+- **`specular`** stand ursprünglich auf (0,1,0), also grünem Glanz. Neutral auf 0.
+
+Vor jeder Materialänderung eine Testreihe bauen und in Google Earth Pro ansehen —
+lokale Renderings (matplotlib, trimesh) bilden dieses Verhalten nicht ab.
+
 ## COLLADA-Geometrie: Umlaufrichtung prüfen
 
 Google Earth zeichnet nur Vorderseiten (Backface-Culling). Sind die Dreiecke eines
