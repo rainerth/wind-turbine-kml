@@ -157,6 +157,11 @@ EOF
 | `output/WEA-boesingen.kml` | dieselbe, unverpackt | braucht `output/models/*.dae` daneben — Zelle 12 spiegelt sie dorthin |
 | `output/WEA-boesingen-web.kmz` | Google Earth **Web**, iPad, sonstige Viewer | vereinfachte WEA aus KML-Primitiven, sonst identisch (Flugplatz, Flugrouten, Tracks) |
 
+Die beiden Dateien lassen sich am Turbinenmodell unterscheiden: **kastenförmige Gondel
+und extrudierter Turm = Web-Version**, geschlossenes Profil mit runder Nabe =
+COLLADA-Version. Wer die COLLADA-Modelle sehen will, muss `WEA-boesingen.kmz` öffnen —
+in der Web-Datei sind sie nicht enthalten, die kennt nur die KML-Primitiven.
+
 ## Key Configuration (in notebook)
 
 ```python
