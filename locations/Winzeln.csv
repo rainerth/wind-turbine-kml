@@ -1,0 +1,5 @@
+Name,Model,Latitude,Longitude,height,diameter,visible,Projekt
+WEA-Wi3,enercon-e-66.dae,48.30162378749774,8.507068040397257,85,70.0,1,Winzeln_Waldmoessingen_Bestand
+Wisoch-1,vestas-v172.dae,48.29649584562196,8.520337742276341,199,172.0,1,Beffendorf_Badenova
+Wisoch-3,vestas-v172.dae,48.2917779421216,8.512748895972532,199,172.0,1,Beffendorf_Badenova
+Wisoch-5,vestas-v172.dae,48.28663381426306,8.51977727571946,199,172.0,1,Beffendorf_Badenova

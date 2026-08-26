@@ -1,0 +1,9 @@
+Name,Model,Latitude,Longitude,height,diameter,visible,Projekt
+WEA-Wa1,enercon-e-66.dae,48.26924809683214,8.511525397530457,74,70.0,0,Winzeln_Waldmoessingen_Bestand
+WEA-Wa1-neu,vestas-v172.dae,48.26924809683214,8.511525397530457,175,172.0,1,Winzeln_Waldmoessingen_Bestand
+WEA-Wa2,enercon-e-66.dae,48.26546244584389,8.506698884123525,74,70.0,0,Winzeln_Waldmoessingen_Bestand
+WEA-Wa2-neu,vestas-v172.dae,48.26546244584389,8.506698884123525,175,172.0,1,Winzeln_Waldmoessingen_Bestand
+WEA-Wa3,enercon-e-66.dae,48.26275022502407,8.507451146233569,74,70.0,0,Winzeln_Waldmoessingen_Bestand
+WEA-Wa3-neu,vestas-v172.dae,48.26275022502407,8.507451146233569,175,172.0,1,Winzeln_Waldmoessingen_Bestand
+WEA-Wa4,enercon-e-66.dae,48.25882273984648,8.508323144156325,74,70.0,0,Winzeln_Waldmoessingen_Bestand
+WEA-Wa4-neu,vestas-v172.dae,48.25882273984648,8.508323144156325,175,172.0,1,Winzeln_Waldmoessingen_Bestand

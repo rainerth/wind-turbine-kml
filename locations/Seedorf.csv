@@ -1,0 +1,5 @@
+Name,Model,Latitude,Longitude,height,diameter,visible,Projekt
+WEA-iT03,vestas-v172.dae,48.2535624303927,8.515617233983022,199,172.0,1,Bösingen_iTerra
+WEA-iT04,vestas-v172.dae,48.250990656256285,8.523341995556082,199,172.0,1,Bösingen_iTerra
+WEA-iT06,vestas-v172.dae,48.24813297773512,8.513814789615974,199,172.0,0,Bösingen_iTerra
+WEA-iT07,vestas-v172.dae,48.24253146460605,8.515831810693385,199,172.0,0,Bösingen_iTerra

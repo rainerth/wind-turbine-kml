@@ -45,12 +45,26 @@ Execute cells sequentially - the notebook generates 3D models, processes locatio
 ## Data Formats
 
 ### Wind Turbine Locations (locations/*.csv)
-```csv
-Name,Model,Latitude,Longitude,height,diameter,visible
-WEA01,vestas-v172.dae,48.237694,8.524661,199,172,1
+
+**Eine Datei je Gemarkung**, benannt nach ihr (`Bösingen.csv`, `Epfendorf.csv`, …).
+Die Zuordnung entsteht per räumlichem Join gegen `areas/gemarkungen.geojson`; nach dem
+Eintragen neuer Anlagen neu sortieren mit:
+
+```bash
+python sources/locations_nach_gemarkung.py [--dry-run]
 ```
-- `height`: Hub height in meters
-- `diameter`: Rotor diameter in meters
+
+```csv
+Name,Model,Latitude,Longitude,height,diameter,visible,Projekt
+WEA-b01,vestas-v172.dae,48.251707,8.531437,199,172,1,Bösingen_Badenova
+```
+- `height`: Nabenhöhe in Metern
+- `diameter`: Rotordurchmesser in Metern
+- `Projekt`: Betreiber bzw. Vorhaben. Steuert die Einfärbung und die
+  Sonderbehandlung des Testturms — **eine Gemarkung kann Anlagen mehrerer Projekte
+  enthalten**, deshalb hängen Farbe und Sichtbarkeit an der Zeile, nicht an der Datei.
+  Der Abgleich läuft über `project_key()` als Teilstring-Vergleich; ein exakter
+  Vergleich (wie früher gegen den Ordnernamen) trifft bei `Bösingen_Badenova` nie.
 - `Model`: Anlagen**typ**, nicht der Dateiname. Der konkrete Dateiname entsteht in
   Zelle 2 aus Typ + Maßen (`vestas-v172-h175-d172.dae`)
 
